@@ -99,7 +99,7 @@ if (isset($_GET['executar_funcao'])) {
 
         <body>
             <section class="evento">
-            <h2 class="header title"><span style="position: absolute; margin-top: 20px; font-size: 25px; font-weight: 700;">RECOMENDAÇÕES DE EVENTOS</span></h2>
+                <h2 class="header title"><span style="position: absolute; margin-top: 20px; font-size: 25px; font-weight: 700;">RECOMENDAÇÕES DE EVENTOS</span></h2>
                 <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] == 1) { ?>
                     <a class="legend3" href="cadastroEvento.php"><small style="font-size: 15px; position: absolute; right: 115px; top: 162px; color: #915c37">Adicionar</small>
                         <img src="assets/addEvento.svg" style="position: absolute; right: 130px; top: 125px;" width="38px" height="38px"></img>
@@ -141,6 +141,17 @@ if (isset($_GET['executar_funcao'])) {
                         if (is_array($eventos) && count($eventos) > 0) {
                             foreach ($eventos as $evento) {
                                 $data_evento_formatada = date('d/m/Y', strtotime($evento['data_evento']));
+                                $conexao = obterConexao();
+                                $sql = "SELECT escolha FROM EscolhasUsuario WHERE email = '$email' AND id_evento = {$evento['id_evento']}";
+                                $result = mysqli_query($conexao, $sql);
+                                if ($result) {
+                                    if (mysqli_num_rows($result) > 0) {
+                                        $row = mysqli_fetch_assoc($result);
+                                        $escolha = $row['escolha'];
+                                    } else {
+                                        $escolha = null; // ou defina um valor padrão se necessário
+                                    }
+                                }else{}
                                 $_SESSION['id_evento'] = $evento['id_evento'];
                                 echo '<div class="box" style="margin-top: 13px;">';
                                 echo '<div class="content">';
@@ -159,8 +170,8 @@ if (isset($_GET['executar_funcao'])) {
                                 echo '<label for="eventoSelect" style="color: #814a23;">Selecione:</label>';
                                 echo '<select id="eventoSelect" name="eventoSelect" style="border: none; outline: none; align-items: center; margin-left: 95px; background-color: #d3beaf; color: #814a23;" class="escolhaSelect" id_evento="' . $evento['id_evento'] . '" required>';
                                 echo '<option value="" selected></option>';
-                                echo '<option value="vou">Vou</option>';
-                                echo '<option value="interesse">Tenho interesse</option>';
+                                echo '<option value="vou" ' . ($escolha == 'vou' ? 'selected' : '') . '>Vou</option>';
+                                echo '<option value="interesse" ' . ($escolha == 'interesse' ? 'selected' : '') . '>Tenho interesse</option>';
                                 echo '</select>';
                                 echo '</div>';
                                 echo '<button type="submit" style="margin-top: 15px; width: 350px;" class="btn button-secondary btn-secondary button d-md-inline-block d-block salvar-escolha">Salvar</button>';
