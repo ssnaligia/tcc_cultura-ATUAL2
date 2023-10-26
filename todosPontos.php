@@ -7,7 +7,6 @@ if (isset($_SESSION['logado'])) {
     $email1 = isset($_SESSION['usuario_logado']) && $_SESSION['usuario_logado'] == true;
     $email = $_SESSION['usuario_logado'];
     buscarNomeUser($email);
-}
 $previousPage = $_SERVER['HTTP_REFERER'];
 ?>
 <!DOCTYPE html>
