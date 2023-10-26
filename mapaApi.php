@@ -34,11 +34,12 @@
         function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
           center: new google.maps.LatLng(-21.7946, -48.1766),
-          zoom: 13
+          zoom: 13,
+          maxZoom: 15,
+          minZoom: 4 
         });
         var infoWindow = new google.maps.InfoWindow;
 
-          // Change this depending on the name of your PHP or XML file
           downloadUrl('apiResultado.php', function(data) {
             var xml = data.responseXML;
             var markers = xml.documentElement.getElementsByTagName('marker');

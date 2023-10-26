@@ -2,7 +2,6 @@
 session_start();
 require("sistema_bd.php");
 
-// Verifica se o formulário foi submetido
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $nome = $_POST["nome_ponto"];
     $endereco = $_POST["endereco"];
@@ -10,18 +9,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $descricao = $_POST["descricao"];
 
     $id_ponto = inserirPonto($nome, $endereco, $descricao, $categoria);
+    $_SESSION["id_ponto"] = $id_ponto;
 
-    // Verifica se o ID do ponto é válido
     if ($id_ponto !== null) {
-        // Continua com o processo de salvar a imagem
         if (isset($_FILES['imagens']) && $_FILES['imagens']['error'] === UPLOAD_ERR_OK) {
             $nome_temporario = $_FILES['imagens']['tmp_name'];
             $nome_arquivo = $_FILES['imagens']['name'];
             $diretorio_destino = "imgsPontos/" . $nome_arquivo;
 
-            // Move o arquivo para o diretório desejado
             if (move_uploaded_file($nome_temporario, $diretorio_destino)) {
-                // Salva o diretório no banco de dados
                 $conexao = obterConexao();
                 $diretorio_salvo = mysqli_real_escape_string($conexao, $diretorio_destino);
                 $sql = "INSERT INTO Imagens (id_ponto, diretorio_imagem) VALUES ('$id_ponto', '$diretorio_salvo')";
@@ -47,22 +43,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 $apiKey = "AIzaSyDe64Z2dRsH8QPQe2iPnUNS-hEl7q0JLs8";
 
-// Codifica o endereço para que ele possa ser incluído em uma URL
 $enderecoCodificado = urlencode($endereco);
 
-// Monta a URL para a requisição à API Geocoding
 $url = "https://maps.googleapis.com/maps/api/geocode/json?address={$enderecoCodificado}&key={$apiKey}";
 
-// Realiza a requisição
 $response = file_get_contents($url);
 
 if ($response) {
-    // Decodifica a resposta JSON
     $data = json_decode($response);
 
-    // Verifica se a solicitação teve êxito
     if ($data->status === "OK") {
-        // Recupera a latitude e longitude do primeiro resultado
         $latitude = $data->results[0]->geometry->location->lat;
         $longitude = $data->results[0]->geometry->location->lng;
         $sql = "INSERT INTO Coordenadas (id_ponto, latitude, longitude) VALUES (?, ?, ?)";

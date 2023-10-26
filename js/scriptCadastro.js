@@ -4,7 +4,6 @@ const container = document.querySelector(".container-cadastro"),
   signUp = document.querySelector(".signup-link"),
   login = document.querySelector(".cadastro-link");
 
-//   js code to show/hide password and change icon
 pwShowHide.forEach((eyeIcon) => {
   eyeIcon.addEventListener("click", () => {
     pwFields.forEach((pwField) => {

@@ -10,13 +10,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["user-message"])) {
         $msg_usuario = $_POST["user-message"];
 
-        // Agora você tem a mensagem do usuário em $msg_usuario
 
-        // Certifique-se de que $nome contenha o nome do usuário
         $email = $_SESSION['usuario_logado'];
-        $nome = buscarNomeUser($email); // Substitua isso pela função que busca o nome do usuário
-
-        // Usar declaração preparada para evitar SQL Injection
+        $nome = buscarNomeUser($email); 
         $sql = "INSERT INTO Chat (email, mensagens, data_hora) VALUES (?, ?, NOW())";
 
         $stmt = $conexao->prepare($sql);

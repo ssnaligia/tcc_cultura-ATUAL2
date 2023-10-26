@@ -138,7 +138,6 @@ if (isset($_SESSION['logado'])) {
                     {
                         $conexao = obterConexao();
 
-                        // Consulta SQL para obter todas as imagens com o mesmo id_ponto
                         $sql = "SELECT diretorio_imagem FROM Imagens WHERE id_ponto = $id_ponto";
                         $result = mysqli_query($conexao, $sql);
 
@@ -152,10 +151,8 @@ if (isset($_SESSION['logado'])) {
 
                         return $imagens;
                     }
-                    // Exemplo de uso da função:
                     $imagens = obterImagensPorIdPonto($id_ponto);
 
-                    // Loop para exibir as imagens
                     foreach ($imagens as $imagem) {
                         echo '<img src="../../' . $imagem . '" alt="Imagem" width=150px height=150px style="object-fit: cover; margin-left: 10px;"><br>';
                     }

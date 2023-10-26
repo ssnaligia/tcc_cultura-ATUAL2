@@ -10,10 +10,8 @@ function parseToXML($htmlStr) {
     return $xmlStr;
 }
 
-// Conexão com o banco de dados
 $conexao = obterConexao();
 
-// Consulta para selecionar os pontos culturais e suas informações
 $result_pontos_culturais = "SELECT pc.*, coord.* 
 FROM PontosCulturais pc
 JOIN Coordenadas coord ON pc.id_ponto = coord.id_ponto
@@ -23,10 +21,8 @@ $resultado_pontos_culturais = mysqli_query($conexao, $result_pontos_culturais);
 
 header("Content-type: text/xml");
 
-// Início do arquivo XML
 echo '<markers>';
 
-// Iterar pelas linhas e imprimir nós XML para cada ponto cultural
 while ($row_ponto_cultural = mysqli_fetch_assoc($resultado_pontos_culturais)) {
     $marker = array(
         'name' => $row_ponto_cultural['nome_ponto'],
@@ -43,5 +39,4 @@ while ($row_ponto_cultural = mysqli_fetch_assoc($resultado_pontos_culturais)) {
     echo '/>';
 }
 
-// Fim do arquivo XML
 echo '</markers>';

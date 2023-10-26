@@ -28,21 +28,41 @@ if (isset($_SESSION['logado'])) {
             var autocomplete;
             autocomplete = new google.maps.places.Autocomplete(document.getElementById(searchInput), {
                 types: ['geocode'],
+                componentRestrictions: {
+                    country: "BR", // Código do país (no formato ISO 3166-1 alfa-2)
+                }
             });
 
-            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+            google.maps.event.addListener(autocomplete, 'place_changed', function() {
                 var near_place = autocomplete.getPlace();
             });
         }
     </script>
 
+
     <style>
         .ativado {
             color: #915c37 !important;
             font-weight: bolder !important;
-            border-bottom: solid 3px var(--primary) !important;
+            border-bottom: solid 4px var(--primary) !important;
         }
-        </style>
+
+        .title-container {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            text-align: center !important;
+        }
+
+        .title {
+            color: #000;
+            margin-bottom: 1rem;
+        }
+
+        .button2 {
+            width: 380px !important;
+        }
+    </style>
 </head>
 <div id="header">
     <div class="container">
@@ -95,19 +115,19 @@ if (isset($_SESSION['logado'])) {
                     include("util/tempoMsg.php");
                     ?>
                 </p>
-                    </br>
+                </br>
                 <div class="container-form2">
                     <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] == 1) { ?>
                         <iframe class="mapa" src="mapaApi.php" allowfullscreen=" " loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     <?php } else { ?>
-                        <iframe class="mapa2" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d118560.67414525045!2d-48.22778205793969!3d-21.779445649534303!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94b8f15fecb7508b%3A0xbdaebe35da49b086!2sAraraquara%2C%20SP!5e0!3m2!1spt-BR!2sbr!4v1668619212415!5m2!1spt-BR!2sbr" allowfullscreen=" " loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe class="mapa2" src="mapaApi.php" allowfullscreen=" " loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     <?php } ?>
                     <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] == 1) { ?>
                         <a class="legend3" href="todosPontos.php"><small style="font-size: 15px; position: absolute; right: 265px; top: 162px; color: #915c37">Ver Pontos</small>
-                            <img src="assets/pontosTodos.png" style="color: #915C37; position: absolute; right: 290px; top: 135px; font-size: 25px;" width="28px" height="28px" alt="map-marker"/> 
+                            <img src="assets/pontosTodos.png" style="color: #915C37; position: absolute; right: 290px; top: 135px; font-size: 25px;" width="28px" height="28px" alt="map-marker" />
                         </a>
-                            <form class="form2" enctype="multipart/form-data" action="salvarPonto.php" method="post">
-                            <h3 class="title" style="color: #000;">Adicione um ponto</h3>
+                        <form class="form2" enctype="multipart/form-data" action="salvarPonto.php" method="post">
+                                <h3 class="title" style="color: #000;">Adicione um ponto</h3>
                             <div class="inputform2">
                                 <input type="text" placeholder="Nome" name="nome_ponto" id="id_ponto" required>
                             </div>
@@ -142,108 +162,107 @@ if (isset($_SESSION['logado'])) {
                                 </br>
                                 </br>
                             </p>
-                            <button type="submit" class="button2" style="position: absolute; left: 1120px; width: 160px;">Adicionar</button>
+                            <button type="submit" class="button2" style="align-itens: center; width: 160px;">Adicionar</button>
                         </form>
                         <?php } else { ?><?php } ?>
                 </div>
             </section>
-                <div class="areaComentarios" id="areaComentarios">
+            <div class="areaComentarios" id="areaComentarios">
+                <p>
+                    </br>
+                    </br>
+                    </br>
+                    </br>
+                    </br>
+                    </br>
+                </p>
+
+                <h3 style="color: #000; text-align: center;">COMENTÁRIOS</h3>
+                <p>
+                    </br>
+                </p>
+                <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] == 1) { ?>
+                    <div id="comentario" class="inputform2" style="text-align: center; position: relative;">
+                        <form id="formComentario" action="addComentario.php" method="post">
+                            <textarea rows="3" name="comentario" id="id_comentario" placeholder="Digite seu comentário..." style="background-color: #e6d3c5; width: 600px; display: inline-block; border-radius: 2px; border: none; outline: none; margin: 0 auto; margin-top: 0; padding: 0.5rem 2rem 0.5rem 0.5rem;" required></textarea>
+                            <a href="" style="text-decoration: none; color: #915c37; position: absolute; top: 10px; right: 300px;">
+                                <button class="btn-reset" type="submit" style="border: none; outline: none; background-color: transparent;"><i class="uil uil-message" style="font-size: 26px; color: #814a23;"></i></button>
+                            </a>
+                        </form>
+                    </div>
+                    <?php } else { ?><?php } ?>
                     <p>
-                        </br>
-                        </br>
-                        </br>
-                        </br>
-                        </br>
                         </br>
                     </p>
 
-                    <h3 style="color: #000; text-align: center;">COMENTÁRIOS</h3>
-                    <p>
-                        </br>
-                    </p>
-                    <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] == 1) { ?>
-                        <div id="comentario" class="inputform2" style="text-align: center; position: relative;">
-                            <form id="formComentario" action="addComentario.php" method="post">
-                                <textarea rows="3" name="comentario" id="id_comentario" placeholder="Digite seu comentário..." style="background-color: #e6d3c5; width: 600px; display: inline-block; border-radius: 2px; border: none; outline: none; margin: 0 auto; margin-top: 0; padding: 0.5rem 2rem 0.5rem 0.5rem;" required></textarea>
-                                <a href="" style="text-decoration: none; color: #915c37; position: absolute; top: 10px; right: 300px;">
-                                    <button class="btn-reset" type="submit" style="border: none; outline: none; background-color: transparent;"><i class="uil uil-message" style="font-size: 26px; color: #814a23;"></i></button>
-                                </a>
-                            </form>
-                        </div>
-                        <?php } else { ?><?php } ?>
-                        <p>
-                            </br>
-                        </p>
+                    <?php
+                    require_once("database/conecta_bd.php");
 
-                        <?php
-                        require_once("database/conecta_bd.php");
-
-                        $sql = "SELECT c.*, cad.nome FROM Comentarios c
+                    $sql = "SELECT c.*, cad.nome FROM Comentarios c
                                 JOIN Cadastro cad ON c.email = cad.email
                                 ORDER BY c.data_publicacao DESC";
-                        $conexao = obterConexao();
-                        $resultado = mysqli_query($conexao, $sql);
+                    $conexao = obterConexao();
+                    $resultado = mysqli_query($conexao, $sql);
 
-                        if (mysqli_num_rows($resultado) > 0) {
-                            while ($row = mysqli_fetch_assoc($resultado)) {
-                                $nomeUsuario = $row['nome']; // ou qualquer outra coluna que contenha o nome da pessoa
-                                $dataPublicacao = date('d/m/Y - H:i', strtotime($row['data_publicacao']));
-                                $comentario = $row['comentario'];
-                        ?>
-                                <div class="comentario" style="width: 600px; margin: 0 auto; margin-bottom: 15px;">
-                                    <div class="info">
-                                        <h5><?php echo $nomeUsuario; ?></h5>
-                                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                                            <h6 style="color: #ba9880; margin-right: 10px;"><?php echo $dataPublicacao; ?></h6>
-                                            <a href="excluirComentario.php?id=<?php echo $row['id_comentario']; ?>" alt="Excluir"><i class="uil uil-trash-alt" style="font-size: 23px; color: #814a23;"></i></a>
-                                        </div>
+                    if (mysqli_num_rows($resultado) > 0) {
+                        while ($row = mysqli_fetch_assoc($resultado)) {
+                            $nomeUsuario = $row['nome']; // ou qualquer outra coluna que contenha o nome da pessoa
+                            $dataPublicacao = date('d/m/Y - H:i', strtotime($row['data_publicacao']));
+                            $comentario = $row['comentario'];
+                    ?>
+                            <div class="comentario" style="width: 600px; margin: 0 auto; margin-bottom: 15px;">
+                                <div class="info">
+                                    <h5><?php echo $nomeUsuario; ?></h5>
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <h6 style="color: #ba9880; margin-right: 10px;"><?php echo $dataPublicacao; ?></h6>
+                                        <a href="excluirComentario.php?id=<?php echo $row['id_comentario']; ?>" alt="Excluir"><i class="uil uil-trash-alt" style="font-size: 23px; color: #814a23;"></i></a>
                                     </div>
-                                    <p><?php echo $comentario; ?></p>
                                 </div>
-
-                        <?php
-                            }
-                        } else {
-                            echo "<p style='text-align: center;'>Nenhum comentário encontrado.</p>";
-                        }
-                        // Fechar a conexão com o banco de dados
-                        mysqli_close($conexao);
-                        ?>
-
-                </div>
-                <footer id="contato">
-                    <p>
-                        </br>
-                        </br>
-                    </p>
-                    <div class="py-4">
-                        <div class="row">
-                            <div class="col-md-7 align-self-center text-md-left text-right">
-                                <ul>
-                                    <li>
-                                        <a href="# "><img src="assets/icon-facebook.svg" /></a>
-                                    </li>
-                                    <li>
-                                        <a href="# "><img src="assets/icon-instagram.svg" /></a>
-                                    </li>
-                                    <li>
-                                        <a href="# "><img src="assets/icon_github.svg" /></a>
-                                    </li>
-                                    <li>
-                                        <a href="# "><img src="assets/icon-whatsapp.svg" /></a>
-                                    </li>
-                                </ul>
+                                <p><?php echo $comentario; ?></p>
                             </div>
+
+                    <?php
+                        }
+                    } else {
+                        echo "<p style='text-align: center;'>Nenhum comentário encontrado.</p>";
+                    }
+                    mysqli_close($conexao);
+                    ?>
+
+            </div>
+            <footer id="contato">
+                <p>
+                    </br>
+                    </br>
+                </p>
+                <div class="py-4">
+                    <div class="row">
+                        <div class="col-md-7 align-self-center text-md-left text-right">
+                            <ul>
+                                <li>
+                                    <a href="# "><img src="assets/icon-facebook.svg" /></a>
+                                </li>
+                                <li>
+                                    <a href="# "><img src="assets/icon-instagram.svg" /></a>
+                                </li>
+                                <li>
+                                    <a href="# "><img src="assets/icon_github.svg" /></a>
+                                </li>
+                                <li>
+                                    <a href="# "><img src="assets/icon-whatsapp.svg" /></a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                </footer>
-                <script>
-                    let subMenu = document.getElementById("subMenu");
+                </div>
+            </footer>
+            <script>
+                let subMenu = document.getElementById("subMenu");
 
-                    function toggleMenu() {
-                        subMenu.classList.toggle("open-menu");
-                    }
-                </script>
+                function toggleMenu() {
+                    subMenu.classList.toggle("open-menu");
+                }
+            </script>
 
         </body>
 

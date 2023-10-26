@@ -11,7 +11,6 @@ if(isset($_POST['btn_select'])) {
     }
 
     if($query_run == true) {
-        // Atualizar o campo "primeiro_login" para "false" no banco de dados
         $conexao = obterConexao();
         $query_update = "UPDATE Cadastro SET primeiroLogin = FALSE WHERE email = '$email'";
         $query_update_run = mysqli_query($conexao, $query_update);

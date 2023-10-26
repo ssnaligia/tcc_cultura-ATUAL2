@@ -9,10 +9,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $_SESSION['usuario_logado'];
     $conexao = obterConexao();
 
-    // Obtenha o id_evento apropriado (dependendo de como você o está obtendo)
     $id_evento = $_SESSION['id_evento'];
 
-    // Verifique se já existe uma escolha para o evento pelo usuário
     $sqlVerificarEscolha = "SELECT id_escolha FROM EscolhasUsuario WHERE email = ? AND id_evento = ?";
     $stmtVerificarEscolha = $conexao->prepare($sqlVerificarEscolha);
     $stmtVerificarEscolha->bind_param("si", $email, $id_evento);
@@ -20,7 +18,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $resultVerificarEscolha = $stmtVerificarEscolha->get_result();
 
     if ($resultVerificarEscolha->num_rows > 0) {
-        // Exclua a escolha anterior para o evento
         $row = $resultVerificarEscolha->fetch_assoc();
         $id_escolha = $row['id_escolha'];
 
@@ -30,7 +27,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $stmtExcluirEscolha->execute();
     }
 
-    // Insira a nova escolha no banco de dados
     $sqlInserirEscolha = "INSERT INTO EscolhasUsuario (email, id_evento, escolha) VALUES (?, ?, ?)";
     $stmtInserirEscolha = $conexao->prepare($sqlInserirEscolha);
 
@@ -39,7 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $stmtInserirEscolha->execute();
     }
 
-    // Redirecionar o usuário após a conclusão
     header("Location: eventos.php");
 }
 ?>

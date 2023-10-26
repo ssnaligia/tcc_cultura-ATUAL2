@@ -34,7 +34,6 @@ function logado()
     session_destroy();
 }
 
-// Verifique se o link foi clicado
 if (isset($_GET['executar_funcao'])) {
     logado();
 }
@@ -50,7 +49,7 @@ if (isset($_GET['executar_funcao'])) {
         .ativado {
             color: #915c37 !important;
             font-weight: bolder !important;
-            border-bottom: solid 3px var(--primary) !important;
+            border-bottom: solid 4px var(--primary) !important;
         }
     </style>
     <link rel="stylesheet" href="css/main.css" />
@@ -135,7 +134,6 @@ if (isset($_GET['executar_funcao'])) {
                 <section class="box-container">
 
                     <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] == 1) {
-                        // Obtendo a lista de eventos
                         $eventos = obterEventos();
 
                         if (is_array($eventos) && count($eventos) > 0) {
@@ -149,22 +147,22 @@ if (isset($_GET['executar_funcao'])) {
                                         $row = mysqli_fetch_assoc($result);
                                         $escolha = $row['escolha'];
                                     } else {
-                                        $escolha = null; // ou defina um valor padrão se necessário
+                                        $escolha = null; 
                                     }
                                 }else{}
                                 $_SESSION['id_evento'] = $evento['id_evento'];
                                 echo '<div class="box" style="margin-top: 13px;">';
                                 echo '<div class="content">';
                                 echo '<div class="icons">';
-                                echo '<h3>' . $evento['nome_evento'] . '</h3>'; // Nome do evento
-                                echo '<i class="uil uil-calendar-alt"></i> ' . $data_evento_formatada; // Data do evento
+                                echo '<h3>' . $evento['nome_evento'] . '</h3>';
+                                echo '<i class="uil uil-calendar-alt"></i> ' . $data_evento_formatada; 
                                 echo '</div>';
                                 echo '<h5 style="margin-top: 10px;">Local:</h5>';
-                                echo '<p>' . $evento['nome_ponto'] . '</p>'; // Local do evento
+                                echo '<p>' . $evento['nome_ponto'] . '</p>';
                                 echo '<h5>Descrição:</h5>';
-                                echo '<p>' . $evento['descricao_evento'] . '</p>'; // Descrição do evento
+                                echo '<p>' . $evento['descricao_evento'] . '</p>'; 
                                 echo '<h5>Categoria:</h5> ';
-                                echo '<p>' . $evento['categoria'] . '</p>'; // Categoria do evento
+                                echo '<p>' . $evento['categoria'] . '</p>'; 
                                 echo '<form class="form" action="salvarEscolha.php" method="post">';
                                 echo '<div class="inputform2">';
                                 echo '<label for="eventoSelect" style="color: #814a23;">Selecione:</label>';
@@ -176,8 +174,8 @@ if (isset($_GET['executar_funcao'])) {
                                 echo '</div>';
                                 echo '<button type="submit" style="margin-top: 15px; width: 350px;" class="btn button-secondary btn-secondary button d-md-inline-block d-block salvar-escolha">Salvar</button>';
                                 echo '</form>';
-                                echo '</div>'; // Fechando a div de conteúdo
-                                echo '</div>'; // Fechando a div de box
+                                echo '</div>'; 
+                                echo '</div>';
                             }
                         } else {
                             echo '<p style="margin-top: 150px;" class="aviso">Nenhum evento encontrado.</p>';
@@ -192,41 +190,37 @@ if (isset($_GET['executar_funcao'])) {
                                 echo '<div class="box" style="margin-top: 13px;">';
                                 echo '<div class="content">';
                                 echo '<div class="icons">';
-                                echo '<h3>' . $evento['nome_evento'] . '</h3>'; // Nome do evento
-                                echo '<i class="uil uil-calendar-alt"></i> ' . $data_evento_formatada; // Data do evento
+                                echo '<h3>' . $evento['nome_evento'] . '</h3>'; 
+                                echo '<i class="uil uil-calendar-alt"></i> ' . $data_evento_formatada; 
                                 echo '</div>';
                                 echo '<h5 style="margin-top: 10px;">Local:</h5>';
-                                echo '<p>' . $evento['nome_ponto'] . '</p>'; // Local do evento
+                                echo '<p>' . $evento['nome_ponto'] . '</p>'; 
                                 echo '<h5>Descrição:</h5>';
-                                echo '<p>' . $evento['descricao_evento'] . '</p>'; // Descrição do evento
+                                echo '<p>' . $evento['descricao_evento'] . '</p>'; 
                                 echo '<h5>Categoria:</h5> ';
-                                echo '<p>' . $evento['categoria'] . '</p>'; // Categoria do evento
+                                echo '<p>' . $evento['categoria'] . '</p>'; 
                                 echo '<a href="?executar_funcao=1">';
                                 echo '</a>';
-                                echo '</div>'; // Fechando a div de conteúdo
-                                echo '</div>'; // Fechando a div de box
+                                echo '</div>'; 
+                                echo '</div>'; 
                             }
                         } else {
-                            echo '<p style="margin-top: 150px;" class="aviso">Nenhum evento encontrado.</p>';
+                            echo "<p style='text-align: center;'>Nenhum evento encontrado.</p>";
                         }
                     }
                     ?>
 
                     <script>
-                        // Verifique se a mensagem está definida e não vazia
                         <?php if (isset($_SESSION["msg"]) && !empty($_SESSION["msg"])) { ?>
-                            // Exiba a mensagem
                             var mensagemDiv = document.getElementById("mensagem");
                             mensagemDiv.innerHTML = "<?php echo $_SESSION["msg"]; ?>";
                             mensagemDiv.className = "alert <?php echo $_SESSION["tipo_msg"]; ?>";
 
-                            // Mostre a mensagem
                             mensagemDiv.style.display = "block";
 
-                            // Oculte a mensagem após 5 segundos (5000 milissegundos)
                             setTimeout(function() {
                                 mensagemDiv.style.display = "none";
-                            }, 3000); // 5000 milissegundos (5 segundos)
+                            }, 3000); 
                         <?php } ?>
                     </script>
                 </section>
@@ -257,7 +251,7 @@ if (isset($_GET['executar_funcao'])) {
                 </footer>
                 <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
                 <script>
-                    new MultiSelectTag('categorias') // id
+                    new MultiSelectTag('categorias')
                 </script>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

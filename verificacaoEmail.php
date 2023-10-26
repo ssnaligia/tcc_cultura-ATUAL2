@@ -51,7 +51,6 @@ if($buscaUsuario == false) {
     $mail->addAddress($email, $nome);
     
     try {
-        // Tente enviar o e-mail
         if ($mail->send()) {
             $nome = $_POST["nome"];
             $email = $_POST["email"];
@@ -66,8 +65,6 @@ if($buscaUsuario == false) {
             $chave = password_hash($email . date("Y-m-d H:i:s"), PASSWORD_DEFAULT);
             $id_confirmaEmail = 3;
             $perfil = $_POST["id_tipo"];
-            //var_dump($data);
-            //die();
             inserirUsuario($nome, $email, $telefone, $dataFormatada, $senha, $chave, $id_confirmaEmail, $perfil);
             $confirmar = $_POST["confirmar"];
             $_SESSION["usuario_logado"] = $email;

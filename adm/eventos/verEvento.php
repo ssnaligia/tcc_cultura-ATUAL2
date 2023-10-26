@@ -75,7 +75,6 @@ if (isset($_SESSION['logado'])) {
         </p>
 
         <?php
-        // Suponha que você já tenha o $row com os dados do evento
         $id_evento = $_GET['id_evento'];
         $sql = "SELECT * FROM Eventos WHERE id_evento = $id_evento";
         $conexao = obterConexao();
@@ -84,13 +83,11 @@ if (isset($_SESSION['logado'])) {
 
         $id_ponto_referencial = $row['id_ponto'];
 
-        // Consulta para obter o nome do ponto referencial
         $sqlPonto = "SELECT nome_ponto FROM PontosCulturais WHERE id_ponto = $id_ponto_referencial";
         $resultPonto = mysqli_query($conexao, $sqlPonto);
         $rowPonto = mysqli_fetch_assoc($resultPonto);
         $nome_ponto_referencial = $rowPonto['nome_ponto'];
 
-        // Consulta para obter a categoria
         $categoria = $row['categoria'];
 
         $sqlCategoria = "SELECT nome_categoria FROM Categoria WHERE id_categoria = $categoria";
@@ -98,7 +95,6 @@ if (isset($_SESSION['logado'])) {
         $rowCategoria = mysqli_fetch_assoc($resultCategoria);
         $nome_categoria = $rowCategoria['nome_categoria'];
 
-        // Formatar a data para "DD/MM/AAAA"
         $data_evento_formatada = date('d/m/Y', strtotime($row['data_evento']));
         ?>
         <div class="container-form2">

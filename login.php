@@ -16,7 +16,7 @@ $previousPage = $_SERVER['HTTP_REFERER'];
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-  <a class="legend2" href="<?php echo $previousPage; ?>"><small style="font-size: 15px; position: absolute; right: 645px; top: 35px;">Voltar</small><i class="uil uil-arrow-left" style="font-size: 35px; position: absolute; right: 650px; top: -5px;"></i></a>
+  <a class="legend2" href="index.php"><small style="font-size: 15px; position: absolute; right: 645px; top: 35px;">Voltar</small><i class="uil uil-arrow-left" style="font-size: 35px; position: absolute; right: 650px; top: -5px;"></i></a>
 </header>
 
 <body class="body-login">
@@ -111,8 +111,6 @@ $previousPage = $_SERVER['HTTP_REFERER'];
       document.getElementById("id_msg").innerHTML = "";
     }
 
-    // Verifica se a variável PHP contendo a mensagem de erro está definida
-    // e exibe a mensagem, em seguida, limpa a variável de sessão
     <?php if (isset($_SESSION['msg'])) : ?>
       exibirMensagemErro("<?php echo $_SESSION['msg']; ?>");
       <?php unset($_SESSION['msg']); ?>

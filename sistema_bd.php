@@ -217,7 +217,6 @@ function enviarEmailrec($email, $nome)
   $mail->setFrom('adm.ofc.arq@gmail.com', 'ARQ Cultura');
   $mail->addAddress($email);
   try {
-    // Tente enviar o e-mail
     if ($mail->send()) {
       $email = $_POST["email"];
       $_SESSION["usuario_logado"] = $email;
@@ -376,7 +375,6 @@ function inserirEvento($nomeEvento, $pontoRef, $dataEventoFormatada, $horarioEve
   }
 }
 
-// Função para obter a lista de eventos
 function obterEventos()
 {
   $conexao = obterConexao();
@@ -387,7 +385,7 @@ function obterEventos()
   $resultado = mysqli_query($conexao, $sql);
 
   if (!$resultado) {
-    die("Erro na consulta: " . mysqli_error($conexao)); // Exibe o erro e encerra o script
+    die("Erro na consulta: " . mysqli_error($conexao)); 
   }
 
   $eventos = array();
@@ -435,14 +433,13 @@ function inserirComunidade($nome_com, $idade_min, $descricao_com)
   }
 }
 
-// Função para obter a lista de eventos
 function obterComunidades()
 {
   $conexao = obterConexao();
   $sql = "SELECT nome_comunidade, idade_minima, descricao_comunidade FROM Comunidade";
   $resultado = mysqli_query($conexao, $sql);
   if (!$resultado) {
-    die("Erro na consulta: " . mysqli_error($conexao)); // Exibe o erro e encerra o script
+    die("Erro na consulta: " . mysqli_error($conexao));
   }
   $comunidades = array();
 

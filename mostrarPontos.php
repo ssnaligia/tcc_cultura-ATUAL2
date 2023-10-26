@@ -59,22 +59,18 @@ $previousPage = $_SERVER['HTTP_REFERER'];
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-BJeoPeE2fBQZVZveqD8m9/xm0JTkZa5wjrPkCue5o/s=" crossorigin="anonymous"></script>
 
     <?php
-    // Verifique se foi feita uma requisição AJAX
     if (isset($_SERVER["HTTP_X_REQUESTED_WITH"]) && strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) === "xmlhttprequest") {
         require("sistema_bd.php");
 
         $conexao = obterConexao();
 
-        // Verifica se o valor da categoria foi enviado via POST
         if (isset($_POST["categoria"])) {
             $categoria = $_POST["categoria"];
 
-            // Consulta SQL para buscar os pontos culturais e suas imagens do banco de dados
             $sql = "SELECT p.id_ponto, p.nome_ponto, p.descricao, p.endereco, i.diretorio_imagem 
             FROM PontosCulturais p
             LEFT JOIN Imagens i ON p.id_ponto = i.id_ponto";
 
-            // Adiciona a cláusula WHERE caso uma categoria tenha sido selecionada
             if (!empty($categoria)) {
                 $sql .= " WHERE p.categoria = " . (int)$categoria;
             }
@@ -83,7 +79,6 @@ $previousPage = $_SERVER['HTTP_REFERER'];
 
             $pontosCulturais = array();
 
-            // Verifica se existem pontos cadastrados
             if (mysqli_num_rows($resultado) > 0) {
                 while ($ponto = mysqli_fetch_assoc($resultado)) {
                     $pontosCulturais[] = array(
@@ -96,10 +91,8 @@ $previousPage = $_SERVER['HTTP_REFERER'];
                 }
             }
 
-            // Fechando a conexão com o banco de dados
             mysqli_close($conexao);
 
-            // Retorna a lista de pontos culturais em formato JSON
             echo json_encode($pontosCulturais);
             exit;
         }
@@ -142,7 +135,6 @@ $previousPage = $_SERVER['HTTP_REFERER'];
             if (isset($_SESSION["id_ponto"])) {
                 $id_ponto = $_SESSION["id_ponto"];
             } else {
-                // A variável de sessão não está definida, faça o tratamento adequado ou redirecione o usuário
                 echo "A variável de sessão 'id_ponto' não está definida.";
             }
             $sql = "SELECT * FROM PontosCulturais WHERE id_ponto = $id_ponto";
@@ -208,7 +200,6 @@ $previousPage = $_SERVER['HTTP_REFERER'];
                     {
                         $conexao = obterConexao();
 
-                        // Consulta SQL para obter todas as imagens com o mesmo id_ponto
                         $sql = "SELECT diretorio_imagem FROM Imagens WHERE id_ponto = $id_ponto";
                         $result = mysqli_query($conexao, $sql);
 
@@ -222,10 +213,8 @@ $previousPage = $_SERVER['HTTP_REFERER'];
 
                         return $imagens;
                     }
-                    // Exemplo de uso da função:
                     $imagens = obterImagensPorIdPonto($id_ponto);
 
-                    // Loop para exibir as imagens
                     foreach ($imagens as $imagem) {
                         echo '<img src="' . $imagem . '" alt="Imagem" width=150px height=150px style="object-fit: cover; margin-left: 10px;"><br>';
                     }

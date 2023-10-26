@@ -7,7 +7,6 @@ if(isset($_POST['btn_notificacao'])) {
         $notificacaoSelecionada = $_POST["notificacoes"];
         $conexao = obterConexao();
 
-        // Insira a notificação no banco de dados
         $sql = "INSERT INTO Notificacoes (email, notificacao) VALUES (?, ?)";
         $stmt = $conexao->prepare($sql);
         $stmt->bind_param("ss", $email, $notificacaoSelecionada);

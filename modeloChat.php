@@ -49,10 +49,7 @@ if (isset($_SESSION['logado'])) {
                             <?php
                             require_once("database/conecta_bd.php");
 
-                            // Obtém o nome do usuário atual da sessão (substitua 'usuario_logado' pelo nome de sua chave na sessão)
                             $nomeUsuarioAtual = buscarNomeUser($email);
-                            //var_dump($nomeUsuarioAtual);
-                            //die();
 
                             $sql = "SELECT c.nome AS nome_usuario, ch.data_hora, ch.mensagens FROM Chat ch
                                     INNER JOIN Cadastro c ON ch.email = c.email
@@ -93,7 +90,6 @@ if (isset($_SESSION['logado'])) {
                                 echo "<p style='text-align: center;'></p>";
                             }
 
-                            // Fechar a conexão com o banco de dados
                             mysqli_close($conexao);
                             ?>
                         </div>
@@ -112,14 +108,8 @@ if (isset($_SESSION['logado'])) {
 
         </div>
     </section>
-    <!--  <script>
-        // Defina um intervalo para recarregar a página a cada 5 segundos (ou o intervalo desejado)
-        setInterval(function() {
-            location.reload(); // Recarregue a página
-        }, 5000); // 5000 milissegundos = 5 segundos (ajuste conforme necessário)
-    </script> -->
+    
     <script>
-        // Obtém o elemento que contém as mensagens do chat
         const chatMessages = document.querySelector('.chat-messages');
         const messageForm = document.querySelector('.chat-input');
 
@@ -127,15 +117,9 @@ if (isset($_SESSION['logado'])) {
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
-        // Role o chat para baixo automaticamente na inicialização
         scrollToBottom();
 
-        // Adicione um ouvinte de eventos para o envio de mensagens
         messageForm.addEventListener('submit', function(e) {
-
-            // Aqui, você pode adicionar código para enviar a mensagem ao servidor
-
-            // Role o chat para baixo automaticamente após o envio da mensagem
             scrollToBottom();
             setInterval(function() {
                 location.reload(); // Recarregue a página

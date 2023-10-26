@@ -21,7 +21,7 @@ if (isset($_SESSION['logado'])) {
     .ativado {
         color: #915c37 !important;
         font-weight: bolder !important;
-        border-bottom: solid 3px var(--primary) !important;
+        border-bottom: solid 4px var(--primary) !important;
     }
 </style>
 <div id="header">

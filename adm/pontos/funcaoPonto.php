@@ -36,7 +36,6 @@ if (isset($_POST['aprov'])) {
     $result_delete_imagens = mysqli_query($conexao, $sql_delete_imagens);
         
     if ($result_delete_eventos) {
-        // Agora você pode excluir o ponto cultural
         $sql_delete_ponto = "DELETE FROM PontosCulturais WHERE id_ponto = $id_ponto";
         $result_delete_ponto = mysqli_query($conexao, $sql_delete_ponto);
         

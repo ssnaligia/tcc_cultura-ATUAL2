@@ -9,7 +9,6 @@ $categorias = $_POST["categorias"];
 
 alterarPerfil($nome, $telefone, $data, $email);
 
-// Atualiza as preferências do usuário no banco de dados
 atualizarPreferenciasUsuario($email, $categorias);
 
 header("Location: formAlterarPerfil.php");

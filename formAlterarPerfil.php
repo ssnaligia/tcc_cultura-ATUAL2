@@ -83,16 +83,12 @@ function obterPreferenciasUsuario($email)
                         <input type="tel" id="id_telefone" name="telefone" placeholder="Telefone" value="<?= $perfil[0]["telefone"] ?>" maxlength="16" oninput="formatarTelefone(this)" required>
                         <script>
                             function formatarTelefone(input) {
-                                // Remove todos os caracteres que não são dígitos
                                 var telefone = input.value.replace(/\D/g, '');
 
-                                // Verifica se o número de telefone tem 11 dígitos (incluindo o DDD)
                                 if (telefone.length === 11) {
-                                    // Formata o número de telefone no formato (DD) XXXXX-XXXX
                                     telefone = '(' + telefone.substr(0, 2) + ') ' + telefone.substr(2, 5) + '-' + telefone.substr(7, 4);
                                 }
 
-                                // Atualiza o valor do campo de entrada com o número de telefone formatado
                                 input.value = telefone;
                             }
                         </script>
@@ -171,7 +167,7 @@ function obterPreferenciasUsuario($email)
     <script src="js/scriptCadastro.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
     <script>
-        new MultiSelectTag('categorias') // id
+        new MultiSelectTag('categorias') 
     </script>
 </body>
 

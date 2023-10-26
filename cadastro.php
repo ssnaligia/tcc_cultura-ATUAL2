@@ -48,7 +48,6 @@ if (!isset($_SESSION)) {
                             var emailInput = document.getElementById('id_email');
                             var email = emailInput.value;
 
-                            // Expressão regular para validar o formato do e-mail
                             var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
                             if (!regex.test(email)) {
@@ -61,16 +60,12 @@ if (!isset($_SESSION)) {
                         <input type="tel" id="id_telefone" name="telefone" placeholder="Telefone" maxlength="16" oninput="formatarTelefone(this)" required>
                         <script>
                             function formatarTelefone(input) {
-                                // Remove todos os caracteres que não são dígitos
                                 var telefone = input.value.replace(/\D/g, '');
 
-                                // Verifica se o número de telefone tem 11 dígitos (incluindo o DDD)
                                 if (telefone.length === 11) {
-                                    // Formata o número de telefone no formato (DD) XXXXX-XXXX
                                     telefone = '(' + telefone.substr(0, 2) + ') ' + telefone.substr(2, 5) + '-' + telefone.substr(7, 4);
                                 }
 
-                                // Atualiza o valor do campo de entrada com o número de telefone formatado
                                 input.value = telefone;
                             }
                         </script>
