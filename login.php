@@ -3,7 +3,6 @@ require("sistema_bd.php");
 if (!isset($_SESSION)) {
   session_start();
 }
-$previousPage = $_SERVER['HTTP_REFERER'];
 ?>
 
 <!DOCTYPE html>

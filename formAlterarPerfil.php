@@ -59,7 +59,7 @@ function obterPreferenciasUsuario($email)
     }
 </script>
 </header>
-<a class="legend2" href="perfil.php"><small style="font-size: 15px; position: absolute; right: 645px; top: 30px;">Voltar</small><i class="uil uil-arrow-left" style="font-size: 35px; position: absolute; right: 650px; top: -9px;"></i></a>
+<a class="legend2" href="perfil2.php"><small style="font-size: 15px; position: absolute; right: 645px; top: 30px;">Voltar</small><i class="uil uil-arrow-left" style="font-size: 35px; position: absolute; right: 650px; top: -9px;"></i></a>
 
 <body class="body-cadastro">
     <div class="container-cadastro">
@@ -73,7 +73,7 @@ function obterPreferenciasUsuario($email)
         <div class="forms">
             <div class="form-cadastro">
                 <p><span class="title">Alterar Perfil</span></p>
-                <form action="alterarPerfil.php" method="post" id="form-login">
+                <form action="alterarperfil.php" method="post" id="form-login">
                     <input type="hidden" name="email" value="<?= $perfil[0]["email"] ?>">
                     <div class="input-field">
                         <input type="text" placeholder="Nome" class="form-control" id="id_nome" style="color: #00000;" name="nome" value="<?= $perfil[0]["nome"] ?>" required>

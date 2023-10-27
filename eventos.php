@@ -77,7 +77,7 @@ if (isset($_GET['executar_funcao'])) {
                     <li class="nav-item">
                         <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] == 1) {
                             $nome_usuario = $_SESSION['nome_user'];
-                            echo '<a class="legend" href="perfil.php"><h1 class="legend" style="font-size: 16px; position: absolute; right: -76px; top: 2px; font-weight: normal;">' . $nome_usuario . '</h1><i class="perfil" style="position: absolute; right: -50px; top: -30px;"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16"><path fill="#915c37" d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fill="#915c37" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/></svg></i></a>';
+                            echo '<a class="legend" href="perfil2.php"><h1 class="legend" style="font-size: 16px; position: absolute; right: -76px; top: 2px; font-weight: normal;">' . $nome_usuario . '</h1><i class="perfil" style="position: absolute; right: -50px; top: -30px;"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16"><path fill="#915c37" d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fill="#915c37" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/></svg></i></a>';
                         } else {
                             echo '<a class="legend" href="login.php"><p class="legend" style="font-size: 16px; position: absolute; right: -76px; top: 2px;">Entrar</p><i class="perfil" style="position: absolute; right: -68px; top: -30px;"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16"><path fill="#915c37" d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fill="#915c37" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/></svg></i></a>';
                         } ?>
@@ -129,10 +129,7 @@ if (isset($_GET['executar_funcao'])) {
                 } ?>
 
                 </br></br></br>
-                <div id="mensagem" style="padding: 3px; size: 5px; text-align: center; margin-top: 5px;"></div>
-
                 <section class="box-container">
-
                     <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] == 1) {
                         $eventos = obterEventos();
 
@@ -147,26 +144,33 @@ if (isset($_GET['executar_funcao'])) {
                                         $row = mysqli_fetch_assoc($result);
                                         $escolha = $row['escolha'];
                                     } else {
-                                        $escolha = null; 
+                                        $escolha = null;
                                     }
-                                }else{}
+                                } else {
+                                }
                                 $_SESSION['id_evento'] = $evento['id_evento'];
-                                echo '<div class="box" style="margin-top: 13px;">';
+                                // Defina o tamanho mínimo para o nome do evento
+                                $tamanhoMinimoNome = 17; // Defina o tamanho mínimo desejado
+
+                                // Verifique o tamanho do nome do evento
+                                $nomeEvento = $evento['nome_evento'];
+                                $marginTop = (strlen($nomeEvento) < $tamanhoMinimoNome) ? 'margin-top: 57px;' : 'margin-top: 13px;';
+                                echo '<div class="box" style="margin-top: 13px; width: 382px !important;">';
                                 echo '<div class="content">';
                                 echo '<div class="icons">';
                                 echo '<h3>' . $evento['nome_evento'] . '</h3>';
-                                echo '<i class="uil uil-calendar-alt"></i> ' . $data_evento_formatada; 
                                 echo '</div>';
-                                echo '<h5 style="margin-top: 10px;">Local:</h5>';
+                                echo '<p style="' .$marginTop. '"><i class="uil uil-calendar-alt"></i> ' . $data_evento_formatada . '</p>';
+                                echo '<h5>Local:</h5>';
                                 echo '<p>' . $evento['nome_ponto'] . '</p>';
                                 echo '<h5>Descrição:</h5>';
-                                echo '<p>' . $evento['descricao_evento'] . '</p>'; 
+                                echo '<p>' . $evento['descricao_evento'] . '</p>';
                                 echo '<h5>Categoria:</h5> ';
-                                echo '<p>' . $evento['categoria'] . '</p>'; 
+                                echo '<p>' . $evento['categoria'] . '</p>';
                                 echo '<form class="form" action="salvarEscolha.php" method="post">';
                                 echo '<div class="inputform2">';
                                 echo '<label for="eventoSelect" style="color: #814a23;">Selecione:</label>';
-                                echo '<select id="eventoSelect" name="eventoSelect" style="border: none; outline: none; align-items: center; margin-left: 95px; background-color: #d3beaf; color: #814a23;" class="escolhaSelect" id_evento="' . $evento['id_evento'] . '" required>';
+                                echo '<select name="eventoSelect[' . $evento['id_evento'] . ']" style="border: none; outline: none; align-items: center; margin-left: 95px; background-color: #d3beaf; color: #814a23;" class="escolhaSelect" required>';
                                 echo '<option value="" selected></option>';
                                 echo '<option value="vou" ' . ($escolha == 'vou' ? 'selected' : '') . '>Vou</option>';
                                 echo '<option value="interesse" ' . ($escolha == 'interesse' ? 'selected' : '') . '>Tenho interesse</option>';
@@ -174,7 +178,7 @@ if (isset($_GET['executar_funcao'])) {
                                 echo '</div>';
                                 echo '<button type="submit" style="margin-top: 15px; width: 350px;" class="btn button-secondary btn-secondary button d-md-inline-block d-block salvar-escolha">Salvar</button>';
                                 echo '</form>';
-                                echo '</div>'; 
+                                echo '</div>';
                                 echo '</div>';
                             }
                         } else {
@@ -187,22 +191,29 @@ if (isset($_GET['executar_funcao'])) {
                             foreach ($eventos as $evento) {
                                 $_SESSION['id_evento'] = $evento['id_evento'];
                                 $data_evento_formatada = date('d/m/Y', strtotime($evento['data_evento']));
-                                echo '<div class="box" style="margin-top: 13px;">';
+
+                                // Defina o tamanho mínimo para o nome do evento
+                                $tamanhoMinimoNome = 17; // Defina o tamanho mínimo desejado
+
+                                // Verifique o tamanho do nome do evento
+                                $nomeEvento = $evento['nome_evento'];
+                                $marginTop = (strlen($nomeEvento) < $tamanhoMinimoNome) ? 'margin-top: 57px;' : 'margin-top: 13px;';
+                                echo '<div class="box" style="margin-top: 13px; width: 325px !important;">';
                                 echo '<div class="content">';
                                 echo '<div class="icons">';
-                                echo '<h3>' . $evento['nome_evento'] . '</h3>'; 
-                                echo '<i class="uil uil-calendar-alt"></i> ' . $data_evento_formatada; 
+                                echo '<h3>' . $nomeEvento . '</h3>';
                                 echo '</div>';
+                                echo '<p style="' .$marginTop. '"><i class="uil uil-calendar-alt"></i> ' . $data_evento_formatada . '</p>';
                                 echo '<h5 style="margin-top: 10px;">Local:</h5>';
-                                echo '<p>' . $evento['nome_ponto'] . '</p>'; 
+                                echo '<p>' . $evento['nome_ponto'] . '</p>';
                                 echo '<h5>Descrição:</h5>';
-                                echo '<p>' . $evento['descricao_evento'] . '</p>'; 
+                                echo '<p>' . $evento['descricao_evento'] . '</p>';
                                 echo '<h5>Categoria:</h5> ';
-                                echo '<p>' . $evento['categoria'] . '</p>'; 
+                                echo '<p>' . $evento['categoria'] . '</p>';
                                 echo '<a href="?executar_funcao=1">';
                                 echo '</a>';
-                                echo '</div>'; 
-                                echo '</div>'; 
+                                echo '</div>';
+                                echo '</div>';
                             }
                         } else {
                             echo "<p style='text-align: center;'>Nenhum evento encontrado.</p>";
@@ -220,7 +231,7 @@ if (isset($_GET['executar_funcao'])) {
 
                             setTimeout(function() {
                                 mensagemDiv.style.display = "none";
-                            }, 3000); 
+                            }, 3000);
                         <?php } ?>
                     </script>
                 </section>

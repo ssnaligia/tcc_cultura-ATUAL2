@@ -36,7 +36,7 @@ protectAdm();
         </ul>
       </div>
     </nav>
-    <a class="legend" href="../perfil.php"><small style="font-size: 15px; position: absolute; left: -39px; top: 5px;">Perfil</small>
+    <a class="legend" href="../perfil2.php"><small style="font-size: 15px; position: absolute; left: -39px; top: 5px;">Perfil</small>
       <i class="login">
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
           <path fill="#915c37" d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />

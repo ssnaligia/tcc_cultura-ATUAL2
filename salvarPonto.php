@@ -1,16 +1,32 @@
 <?php
 session_start();
 require("sistema_bd.php");
+$email1 = isset($_SESSION['usuario_logado']) && $_SESSION['usuario_logado'] == true;
+$email = $_SESSION['usuario_logado'];
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $criador = $email;
     $nome = $_POST["nome_ponto"];
-    $endereco = $_POST["endereco"];
-    $categoria = $_POST["categoria"];
-    $descricao = $_POST["descricao"];
 
-    $id_ponto = inserirPonto($nome, $endereco, $descricao, $categoria);
-    $_SESSION["id_ponto"] = $id_ponto;
+    // Consulta para verificar se o ponto cultural já existe
+    $sql = "SELECT COUNT(*) AS count FROM PontosCulturais WHERE nome_ponto = '$nome'";
+    $conexao = obterConexao();
+    $resultado = mysqli_query($conexao, $sql);
+    $row = mysqli_fetch_assoc($resultado);
+    $count = $row['count'];
 
+    if ($count > 0) {
+        $_SESSION["msg"] = "Já existe um ponto cultural com esse mesmo nome!";
+        $_SESSION["tipo_msg"] = "alert-danger";
+        header("Location: pontosCulturais.php");       
+    } else {
+        $endereco = $_POST["endereco"];
+        $categoria = $_POST["categoria"];
+        $descricao = $_POST["descricao"];
+    
+        $id_ponto = inserirPonto($criador, $nome, $endereco, $descricao, $categoria);
+        $_SESSION["id_ponto"] = $id_ponto;
+        
     if ($id_ponto !== null) {
         if (isset($_FILES['imagens']) && $_FILES['imagens']['error'] === UPLOAD_ERR_OK) {
             $nome_temporario = $_FILES['imagens']['tmp_name'];
@@ -39,6 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $_SESSION["tipo_msg"] = "alert-danger";
         header("Location: pontosCulturais.php");
     }
+}
 }
 
 $apiKey = "AIzaSyDe64Z2dRsH8QPQe2iPnUNS-hEl7q0JLs8";

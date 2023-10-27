@@ -10,7 +10,8 @@ if (isset($_SESSION['logado'])) {
     $perfil = perfilUsuario($email);
 }
 
-function logado() {
+function logado()
+{
     $_SESSION["msg"] = "Faça o login para realizar essa funcionalidade!";
     $_SESSION["tipo_msg"] = "alert-danger";
 }
@@ -47,16 +48,14 @@ if (isset($_GET['executar_funcao'])) {
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <img src="assets/logo.svg" class="navbar-brand img-fluid" height="200" width="200" />
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span
-                        class="navbar-toggler-icon"></span></button>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
                         <li class="nav-item">
                             <a class="nav-link" href="index.php">Home</a>
                         </li>
-                            <a class="nav-link" href="pontosCulturais.php">Pontos Culturais</a>
+                        <a class="nav-link" href="pontosCulturais.php">Pontos Culturais</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="eventos.php">Eventos</a>
@@ -67,7 +66,7 @@ if (isset($_GET['executar_funcao'])) {
                         <li class="nav-item">
                             <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] == 1) {
                                 $nome_usuario = $_SESSION['nome_user'];
-                                echo '<a class="legend" href="perfil.php"><h1 class="legend" style="font-size: 16px; position: absolute; right: -76px; top: 2px; font-weight: normal;">' . $nome_usuario . '</h1><i class="perfil" style="position: absolute; right: -50px; top: -30px;"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16"><path fill="#915c37" d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fill="#915c37" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/></svg></i></a>';
+                                echo '<a class="legend" href="perfil2.php"><h1 class="legend" style="font-size: 16px; position: absolute; right: -76px; top: 2px; font-weight: normal;">' . $nome_usuario . '</h1><i class="perfil" style="position: absolute; right: -50px; top: -30px;"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16"><path fill="#915c37" d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fill="#915c37" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/></svg></i></a>';
                             } else {
                                 echo '<a class="legend" href="login.php"><p class="legend" style="font-size: 16px; position: absolute; right: -76px; top: 2px;">Entrar</p><i class="perfil" style="position: absolute; right: -68px; top: -30px;"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16"><path fill="#915c37" d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fill="#915c37" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/></svg></i></a>';
                             } ?>
@@ -97,6 +96,23 @@ if (isset($_GET['executar_funcao'])) {
                     echo '<br><br>';
                     $count = 0;
                     foreach ($comunidades as $comunidade) {
+                        $id_comunidade = "SELECT id_comunidade FROM Comunidade WHERE nome_comunidade = '" . $comunidade['nome_comunidade'] . "'";
+                        $conexao = obterConexao();
+                        $resultado = mysqli_query($conexao, $id_comunidade);
+                        if (mysqli_num_rows($resultado) > 0) {
+                            while ($row = mysqli_fetch_assoc($resultado)) {
+                                $id_comunidade = $row['id_comunidade'];
+                            }
+                        } else {
+                        }
+                        $sqlContagemMembros = "SELECT COUNT(*) AS num_membros FROM UsuarioComunidade WHERE id_comunidade = $id_comunidade";
+                        $resultadoContagem = mysqli_query($conexao, $sqlContagemMembros);
+                        $numMembros = 0;
+                    
+                        if ($resultadoContagem) {
+                            $row = mysqli_fetch_assoc($resultadoContagem);
+                            $numMembros = $row['num_membros'];
+                        } else{}
                         if ($count % 2 == 0) {
                             echo '<div class="row align-items-md-stretch">';
                         }
@@ -106,19 +122,19 @@ if (isset($_GET['executar_funcao'])) {
                         echo '<img src="assets/comunidade.png" width="80px" height="80px">';
                         echo '</div>';
                         echo '<h2 class="title" style="font-weight: 700;">' . $comunidade['nome_comunidade'] . '</h2>';
-                        echo '<h6>Qntd de Membros: 07 usuários</h6>';
+                        echo '<h6>Qntd de Membros: ' . $numMembros . ' usuário(s)</h6>';
                         echo '<h7>Idade Mínima: ' . $comunidade['idade_minima'] . '</h7>';
                         echo '<br><br>';
                         echo '<h7>Descrição:  ' . $comunidade['descricao_comunidade'] . '</h7>';
                         echo '<br><br>';
-                        echo '<a href="modeloChat.php">';
+                        echo '<a href="modeloChat.php?id_comunidade=' . $id_comunidade . '">';
                         echo '<button class="btn" type="button" style="color: #ffff; background-color: #915c37;"> <img src="assets/porta.png" height="30px" width="30px"> Entrar</button>';
                         echo '</a>';
                         echo '</div>';
                         echo '</div>';
                         if ($count % 2 == 1 || $count == count($comunidades) - 1) {
                             echo '</div>';
-                            echo '<br>';  
+                            echo '<br>';
                         }
                         $count++;
                     }
@@ -140,7 +156,7 @@ if (isset($_GET['executar_funcao'])) {
                             echo '<div class="row align-items-md-stretch" style="margin-top: -20px;">';
                         }
                         echo '<div class="col-md-6">';
-                        echo '<div class="h-100 p-5 text-bg rounded-3" style="background: #d3beaf;">';
+                        echo '<div class="h-100 p-5 text-bg rounded-3" style="background: #d3beaf; border-radius: 5px;">';
                         echo '<div class="col-md-2">';
                         echo '<img src="assets/comunidade.png" width="80px" height="80px">';
                         echo '</div>';
@@ -157,7 +173,7 @@ if (isset($_GET['executar_funcao'])) {
                         echo '</div>';
                         if ($count % 2 == 1 || $count == count($comunidades) - 1) {
                             echo '</div>';
-                            echo '<br>'; 
+                            echo '<br>';
                         }
                         $count++;
                     }
@@ -172,11 +188,11 @@ if (isset($_GET['executar_funcao'])) {
                 <br>
             </p>
             <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] == 1) { ?>
-            <a class="legend3" href="addComunidade.php"><small style="font-size: 15px; position: absolute; right: 105px; top: 162px; color: #915c37">Adicionar</small>
-                <i class="uil uil-comment-alt-plus" style="color: #915C37; position: absolute; right: 130px; top: 135px; font-size: 25px;"
-                    width="38px" height="38px"></i>
-            </a>
-            <?php } else { } ?>
+                <a class="legend3" href="addComunidade.php"><small style="font-size: 15px; position: absolute; right: 105px; top: 162px; color: #915c37">Adicionar</small>
+                    <i class="uil uil-comment-alt-plus" style="color: #915C37; position: absolute; right: 130px; top: 135px; font-size: 25px;" width="38px" height="38px"></i>
+                </a>
+            <?php } else {
+            } ?>
             <footer id="contato">
                 <p>
                     <br>

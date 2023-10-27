@@ -51,50 +51,62 @@ if (isset($_SESSION['logado'])) {
 
                             $nomeUsuarioAtual = buscarNomeUser($email);
 
-                            $sql = "SELECT c.nome AS nome_usuario, ch.data_hora, ch.mensagens FROM Chat ch
-                                    INNER JOIN Cadastro c ON ch.email = c.email
-                                    ORDER BY ch.data_hora ASC";
 
-                            $conexao = obterConexao();
-                            $resultado = mysqli_query($conexao, $sql);
+                            if (isset($_GET['id_comunidade'])) {
+                                $id_comunidade = $_GET['id_comunidade'];
+                                $sqlVerificarComunidade = "SELECT id_comunidade FROM UsuarioComunidade WHERE email = '$email' AND id_comunidade = $id_comunidade";
+                                $conexao = obterConexao();
+                                $conexao = obterConexao();
+                                $resultadoVerificarComunidade = mysqli_query($conexao, $sqlVerificarComunidade);
 
-                            if (mysqli_num_rows($resultado) > 0) {
-                                while ($row = mysqli_fetch_assoc($resultado)) {
-                                    $nome = $row['nome_usuario'];
-                                    $dataHora = date('d/m/Y - H:i', strtotime($row['data_hora']));
-                                    $mensagem = $row['mensagens'];
-                            ?>
-                                    <div class="d-flex justify-content-between <?php echo ($nome != $nomeUsuarioAtual) ? 'outro' : ''; ?>">
-                                        <div class="<?php echo ($nome === $nomeUsuarioAtual) ? 'ms-auto' : ''; ?>">
-                                            <p class="small mb-1 text-muted"><?php echo $dataHora; ?></p>
+                                if (mysqli_num_rows($resultadoVerificarComunidade) === 0) {
+                                    // A relação entre o usuário e a comunidade não existe, então adicionamos
+                                    $sqlAdcComuni = "INSERT INTO UsuarioComunidade (email, id_comunidade) VALUES ('$email', $id_comunidade)";
+                                    mysqli_query($conexao, $sqlAdcComuni);
+                                } else {}
+                                $sql = "SELECT c.nome AS nome_usuario, ch.data_hora, ch.mensagens 
+                                FROM Chat ch
+                                INNER JOIN Cadastro c ON ch.email = c.email
+                                WHERE ch.id_comunidade = $id_comunidade
+                                ORDER BY ch.data_hora ASC";
+
+                                $conexao = obterConexao();
+                                $resultado = mysqli_query($conexao, $sql);
+                                if (mysqli_num_rows($resultado) > 0) {
+                                    while ($row = mysqli_fetch_assoc($resultado)) {
+                                        $nome = $row['nome_usuario'];
+                                        $dataHora = date('d/m/Y - H:i', strtotime($row['data_hora']));
+                                        $mensagem = $row['mensagens'];
+                                ?>
+                                        <div class="d-flex justify-content-between <?php echo ($nome != $nomeUsuarioAtual) ? 'outro' : ''; ?>">
+                                            <div class="<?php echo ($nome === $nomeUsuarioAtual) ? 'ms-auto' : ''; ?>">
+                                                <p class="small mb-1 text-muted"><?php echo $dataHora; ?></p>
+                                            </div>
+                                            <h4 class="small"><?php echo $nome; ?></h4>
                                         </div>
-                                        <h4 class="small"><?php echo $nome; ?></h4>
-                                    </div>
-                                    <div class="d-flex flex-row <?php echo ($nome === $nomeUsuarioAtual) ? 'justify-content-end' : 'justify-content-start'; ?>">
-                                        <?php if ($nome === $nomeUsuarioAtual) { ?>
-                                            <div>
-                                                <p class="small p-2 mb-3 rounded-1" style="background-color: #f5f6f7;"><?php echo $mensagem; ?></p>
-                                            </div>
-                                            <i class="uil uil-user" style="/* width: 75px; */ height: 100%; font-size: 25px;"></i>
-                                        <?php } else { ?>
-                                            <i class="uil uil-user" style="/* width: 75px; */ height: 100%; font-size: 25px;"></i>
-                                            <div>
-                                                <p class="small p-2 mb-3 rounded-1" style="background-color: #f5f6f7;"><?php echo $mensagem; ?></p>
-                                            </div>
-                                        <?php } ?>
-                                    </div>
-
-                            <?php
-                                }
-                            } else {
-                                echo "<p style='text-align: center;'></p>";
-                            }
-
-                            mysqli_close($conexao);
+                                        <div class="d-flex flex-row <?php echo ($nome === $nomeUsuarioAtual) ? 'justify-content-end' : 'justify-content-start'; ?>">
+                                            <?php if ($nome === $nomeUsuarioAtual) { ?>
+                                                <div>
+                                                    <p class="small p-2 mb-3 rounded-1" style="background-color: #f5f6f7;"><?php echo $mensagem; ?></p>
+                                                </div>
+                                                <i class="uil uil-user" style="/* width: 75px; */ height: 100%; font-size: 25px;"></i>
+                                            <?php } else { ?>
+                                                <i class="uil uil-user" style="/* width: 75px; */ height: 100%; font-size: 25px;"></i>
+                                                <div>
+                                                    <p class="small p-2 mb-3 rounded-1" style="background-color: #f5f6f7;"><?php echo $mensagem; ?></p>
+                                                </div>
+                                            <?php } ?>
+                                        </div>
+    
+                                <?php
+                                    }} else {
+                                        echo "<p style='text-align: center;'></p>";                            
+                                    }}
                             ?>
                         </div>
                         <div class="card-footer text-muted d-flex justify-content-start align-items-center p-3" style="display: flex !important; flex-direction: column-reverse; align-items: stretch !important;">
                             <form class="chat-input" action="server.php" method="POST">
+                            <input type="hidden" name="id_comunidade" value="<?php echo $id_comunidade; ?>">
                                 <div class="input-group mb-0 ">
                                     <input type="text " class="form-control" id="user-input" name="user-message" placeholder="Digite sua mensagem" aria-label="Recipient 's username" aria-describedby="button-addon2" />
                                     <button class="btn text-white" type="submit" id="button-addon2" style="padding-top: 0.25rem; background-color: #915c37; height: 100% !important; margin: 0 !important;">Enviar</button>
@@ -108,7 +120,7 @@ if (isset($_SESSION['logado'])) {
 
         </div>
     </section>
-    
+
     <script>
         const chatMessages = document.querySelector('.chat-messages');
         const messageForm = document.querySelector('.chat-input');

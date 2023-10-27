@@ -20,7 +20,7 @@ $email = $_SESSION["usuario_logado"];
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 </header>
-<a class="legend2" href="<?php echo (isset($_SESSION['logado']) && $_SESSION['logado'] == 1) ? 'perfil.php' : 'login.php'; ?>"><small style="font-size: 15px; position: absolute; right: 645px; top: 30px;">Voltar</small><i class="uil uil-arrow-left" style="font-size: 35px; position: absolute; right: 650px; top: 0px;"></i></a>
+<a class="legend2" href="<?php echo (isset($_SESSION['logado']) && $_SESSION['logado'] == 1) ? 'perfil2.php' : 'login.php'; ?>"><small style="font-size: 15px; position: absolute; right: 645px; top: 30px;">Voltar</small><i class="uil uil-arrow-left" style="font-size: 35px; position: absolute; right: 650px; top: 0px;"></i></a>
 
 <body class="body-cadastro">
     <div class="container-cadastro">

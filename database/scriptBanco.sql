@@ -73,32 +73,36 @@ CREATE TABLE Comentarios (
 
 CREATE TABLE PontosCulturais (
     id_ponto INT AUTO_INCREMENT PRIMARY KEY,
-    nome_ponto VARCHAR(100),
+    criador VARCHAR(100),
+    nome_ponto VARCHAR(100) NULL UNIQUE,
     endereco VARCHAR(100),
     categoria INT,
     descricao LONGTEXT,
     aprovado TINYINT DEFAULT 0, /* 0 não aprovado, 1 aprovado */
-    FOREIGN KEY (categoria) REFERENCES Categoria (id_categoria)
+    FOREIGN KEY (categoria) REFERENCES Categoria (id_categoria),
+    FOREIGN KEY (criador) REFERENCES Cadastro (email)
 );
 
 CREATE TABLE Imagens (
   id_ponto INT,
   diretorio_imagem VARCHAR(255),
-  FOREIGN KEY (id_ponto) REFERENCES PontosCulturais (id_ponto)
+  FOREIGN KEY (id_ponto) REFERENCES PontosCulturais (id_ponto) ON DELETE CASCADE
 );
 
 CREATE TABLE Eventos (
     id_ponto INT,
+    criador VARCHAR(100),
     id_evento INT AUTO_INCREMENT,
-    nome_evento VARCHAR(100),
+    nome_evento VARCHAR(100) NULL UNIQUE,
     descricao_evento VARCHAR(100),
     categoria INT,
     data_evento DATE NOT NULL,
     horario TIME NOT NULL,
     aprovado TINYINT DEFAULT 0, /* 0 não aprovado, 1 aprovado */
     PRIMARY KEY (id_evento),
-    FOREIGN KEY (id_ponto) REFERENCES PontosCulturais (id_ponto),
-    FOREIGN KEY (categoria) REFERENCES Categoria (id_categoria)
+    FOREIGN KEY (id_ponto) REFERENCES PontosCulturais (id_ponto) ON DELETE CASCADE,
+    FOREIGN KEY (categoria) REFERENCES Categoria (id_categoria),
+    FOREIGN KEY (criador) REFERENCES Cadastro (email)
 );
 
 CREATE TABLE EscolhasUsuario (
@@ -119,20 +123,33 @@ CREATE TABLE Avaliacoes (
 
 CREATE TABLE Comunidade (
     id_comunidade INT AUTO_INCREMENT,
-    nome_comunidade VARCHAR(100),
+    criador VARCHAR(100),
+    nome_comunidade VARCHAR(100) NULL UNIQUE,
     idade_minima VARCHAR(20),
     descricao_comunidade LONGTEXT,
     aprovado TINYINT DEFAULT 0, /* 0 não aprovado, 1 aprovado */
-    PRIMARY KEY (id_comunidade)
+    PRIMARY KEY (id_comunidade),
+    FOREIGN KEY (criador) REFERENCES Cadastro (email)
+);
+
+CREATE TABLE usuarioComunidade (
+    id INT AUTO_INCREMENT,
+    email VARCHAR(100),
+    id_comunidade INT,
+    PRIMARY KEY (id),
+    FOREIGN KEY (email) REFERENCES Cadastro (email) ON DELETE CASCADE,
+    FOREIGN KEY (id_comunidade) REFERENCES Comunidade (id_comunidade)
 );
 
 CREATE TABLE Chat (
     id_chat INT AUTO_INCREMENT,
+    id_comunidade INT,
     email VARCHAR(100) NOT NULL,
     mensagens LONGTEXT,
     data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id_chat),
-    FOREIGN KEY (email) REFERENCES Cadastro (email)
+    FOREIGN KEY (email) REFERENCES Cadastro (email) ON DELETE CASCADE,
+    FOREIGN KEY (id_comunidade) REFERENCES Comunidade (id_comunidade)
 );
 
 CREATE TABLE Notificacoes (
@@ -146,7 +163,7 @@ CREATE TABLE Coordenadas (
     id_ponto INT PRIMARY KEY,
     latitude FLOAT( 10, 6 ) NOT NULL,
     longitude FLOAT ( 10, 6 ) NOT NULL,
-    FOREIGN KEY (id_ponto) REFERENCES PontosCulturais (id_ponto)
+    FOREIGN KEY (id_ponto) REFERENCES PontosCulturais (id_ponto) ON DELETE CASCADE
 );
 
 CREATE TABLE markers (

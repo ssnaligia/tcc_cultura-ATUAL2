@@ -310,13 +310,12 @@ function atualizarPreferenciasUsuario($email, $categorias)
   mysqli_close($conexao);
 }
 
-function inserirPonto($nome, $endereco, $descricao, $categoria)
-{
-  $sql = "INSERT INTO PontosCulturais (nome_ponto, endereco, descricao, categoria) VALUES (?, ?, ?, ?)";
+function inserirPonto($criador, $nome, $endereco, $descricao, $categoria) {
+  $sql = "INSERT INTO PontosCulturais (criador, nome_ponto, endereco, descricao, categoria) VALUES (?, ?, ?, ?, ?)";
   $conexao = obterConexao();
   $stmt = $conexao->prepare($sql);
   if ($stmt) {
-    $stmt->bind_param("sssi", $nome, $endereco, $descricao, $categoria);
+    $stmt->bind_param("ssssi", $criador, $nome, $endereco, $descricao, $categoria);
     $stmt->execute();
     if ($stmt->affected_rows > 0) {
       $_SESSION["msg"] = "Ponto Cultural \"" . $nome . "\" inserido com sucesso!";
@@ -350,13 +349,13 @@ function obterPontosCulturais()
   return $pontos;
 }
 
-function inserirEvento($nomeEvento, $pontoRef, $dataEventoFormatada, $horarioEvento, $categoria, $descricaoEvento)
+function inserirEvento($criador, $nomeEvento, $pontoRef, $dataEventoFormatada, $horarioEvento, $categoria, $descricaoEvento)
 {
-  $sql = "INSERT INTO Eventos (nome_evento, id_ponto, data_evento, horario, categoria, descricao_evento) VALUES (?, ?, ?, ?, ?, ?)";
+  $sql = "INSERT INTO Eventos (criador, nome_evento, id_ponto, data_evento, horario, categoria, descricao_evento) VALUES (?, ?, ?, ?, ?, ?, ?)";
   $conexao = obterConexao();
   $stmt = $conexao->prepare($sql);
   if ($stmt) {
-    $stmt->bind_param("sissis", $nomeEvento, $pontoRef, $dataEventoFormatada, $horarioEvento, $categoria, $descricaoEvento);
+    $stmt->bind_param("ssissis", $criador, $nomeEvento, $pontoRef, $dataEventoFormatada, $horarioEvento, $categoria, $descricaoEvento);
     $stmt->execute();
     if ($stmt->affected_rows > 0) {
       $_SESSION["msg"] = "Evento cadastrado com sucesso!";
@@ -379,9 +378,11 @@ function obterEventos()
 {
   $conexao = obterConexao();
   $sql = "SELECT e.nome_evento, e.data_evento, e.id_evento, e.horario, p.nome_ponto, c.nome_categoria, e.descricao_evento
-          FROM Eventos e
-          INNER JOIN PontosCulturais p ON e.id_ponto = p.id_ponto
-          INNER JOIN Categoria c ON e.categoria = c.id_categoria";
+  FROM Eventos e
+  INNER JOIN PontosCulturais p ON e.id_ponto = p.id_ponto
+  INNER JOIN Categoria c ON e.categoria = c.id_categoria
+  WHERE e.aprovado = 1";
+  
   $resultado = mysqli_query($conexao, $sql);
 
   if (!$resultado) {
@@ -408,13 +409,13 @@ function obterEventos()
 
   return $eventos;
 }
-function inserirComunidade($nome_com, $idade_min, $descricao_com)
+function inserirComunidade($criador, $nome_com, $idade_min, $descricao_com)
 {
-  $sql = "INSERT INTO Comunidade (nome_comunidade, idade_minima, descricao_comunidade) VALUES (?, ?, ?)";
+  $sql = "INSERT INTO Comunidade (criador, nome_comunidade, idade_minima, descricao_comunidade) VALUES (?, ?, ?, ?)";
   $conexao = obterConexao();
   $stmt = $conexao->prepare($sql);
   if ($stmt) {
-    $stmt->bind_param("sss", $nome_com, $idade_min, $descricao_com);
+    $stmt->bind_param("ssss", $criador, $nome_com, $idade_min, $descricao_com);
     $stmt->execute();
     if ($stmt->affected_rows > 0) {
       $_SESSION["msg"] = "Comunidade criada com sucesso!";
@@ -436,7 +437,7 @@ function inserirComunidade($nome_com, $idade_min, $descricao_com)
 function obterComunidades()
 {
   $conexao = obterConexao();
-  $sql = "SELECT nome_comunidade, idade_minima, descricao_comunidade FROM Comunidade";
+  $sql = "SELECT nome_comunidade, idade_minima, descricao_comunidade FROM Comunidade WHERE aprovado = 1";
   $resultado = mysqli_query($conexao, $sql);
   if (!$resultado) {
     die("Erro na consulta: " . mysqli_error($conexao));

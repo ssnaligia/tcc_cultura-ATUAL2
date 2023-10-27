@@ -40,7 +40,7 @@ if (isset($_POST["senha"])) {
                 } else {
                     $_SESSION["msg"] = "Senha alterada com sucesso!";
                     $_SESSION["tipo_msg"] = "alert-success";
-                    header("Location: perfil.php");
+                    header("Location: perfil2.php");
                     die();
                 }
             } else {

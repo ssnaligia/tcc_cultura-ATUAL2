@@ -98,26 +98,6 @@ $previousPage = $_SERVER['HTTP_REFERER'];
         }
     }
     ?>
-    <form id="filtroForm" action="filtro.php" method="post">
-        <div class="inputform2" style="border-radius: 2px; border: none; outline: none; margin-top: 0.5rem; align-items: center; display: flex; border-bottom: 2px solid #915c37; border-top: 2px solid transparent; padding: 0.5rem; ">
-            <label for="categoria" style="color: #814a23;">Categoria</label>
-            <select id="categoria" name="categoria" style="border: none; outline: none; align-items: center; margin-left: 55px; background-color: #d3beaf;" required>
-                <option value="" selected>Todas</option>
-                <option value="1">Eventos no Geral</option>
-                <option value="2">Teatro</option>
-                <option value="3">Dança</option>
-                <option value="4">Literatura</option>
-                <option value="5">Música</option>
-                <option value="6">Política</option>
-                <option value="7">Esporte</option>
-                <option value="8">Manifestações Religiosas</option>
-                <option value="9">Entretenimento/Cinema</option>
-                <option value="10">Shows</option>
-                <option value="11">Debates</option>
-            </select>
-        </div>
-        <input type="submit" value="Filtrar">
-    </form>
 
     <section class="add-ponto">
         <a href="<?php echo $previousPage; ?>"><i class="uil uil-arrow-left seta" style="font-size: 35px;"></i></a>
