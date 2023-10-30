@@ -24,6 +24,78 @@ if (isset($_SESSION['logado'])) {
             font-weight: bolder !important;
             border-bottom: solid 4px var(--primary) !important;
         }
+
+        .inputform2 input {
+            width: 355px;
+            margin-left: 10px;
+            color: #000;
+            padding: 0.5rem;
+        }
+
+        .textarea {
+            width: 330px;
+            border-radius: 2px;
+            border: none;
+            outline: none;
+            margin-top: 0.5rem;
+            align-items: center;
+            display: flex;
+            border-bottom: 2px solid #d3beaf;
+            border-top: 2px solid transparent;
+            padding: 0.5rem;
+            margin-left: 3px;
+        }
+
+        .categoria {
+            width: 355px;
+            margin-left: 9px;
+            border-radius: 2px;
+            border: none;
+            outline: none;
+            margin-top: 0.5rem;
+            align-items: center;
+            display: flex;
+            border-bottom: 2px solid #915c37;
+            border-top: 2px solid transparent;
+            padding: 0.5rem;
+        }
+
+        .container-form {
+            margin-left: 255px;
+            display: flex !important;
+            align-items: center;
+            display: flex;
+            padding: 40px;
+            justify-content: center;
+            max-width: 450px;
+            width: 408px;
+            background-color: #d3beaf;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgb(0 0 0 / 10%);
+        }
+
+        .inputEv {
+            width: 355px;
+            margin-left: 11px;
+            border-radius: 2px;
+            border: none;
+            outline: none;
+            margin-top: 0.5rem;
+            align-items: center;
+            display: flex;
+            border-bottom: 2px solid #915c37;
+            border-top: 2px solid transparent;
+            padding: 0.5rem;
+        }
+
+        .selectEv {
+            border: none;
+            width: 183px;
+            margin-left: 40px;
+            outline: none;
+            align-items: center;
+            background-color: #d3beaf;
+        }
     </style>
 </head>
 <body>
@@ -85,9 +157,9 @@ if (isset($_SESSION['logado'])) {
                             <div class="inputform2">
                                 <input type="text" placeholder="Nome" name="nome_evento" id="id_evento">
                             </div>
-                            <div class="inputform2" style="border-radius: 2px; border: none; outline: none; margin-top: 0.5rem; align-items: center; display: flex; border-bottom: 2px solid #915c37; border-top: 2px solid transparent; padding: 0.5rem; ">
+                            <div class="inputEv" style="border-radius: 2px; border: none; outline: none; margin-top: 0.5rem; align-items: center; display: flex; border-bottom: 2px solid #915c37; border-top: 2px solid transparent; padding: 0.5rem; ">
                                 <label for="ponto" style="color: #814a23;">Ponto Referencial</label>
-                                <select id="id_ponto" name="id_ponto" style="border: none; outline: none; align-items: center; margin-left: 55px; background-color: #d3beaf;" required>
+                                <select class="selectEv" id="id_ponto" name="id_ponto" style="border: none; outline: none; align-items: center; background-color: #d3beaf;" required>
                                     <option value="">Selecione um ponto cultural</option>
                                     <?php
                                     $pontos = obterPontosCulturais();
@@ -149,9 +221,9 @@ if (isset($_SESSION['logado'])) {
 
                                 window.onload = formatTime;
                             </script>
-                            <div class="inputform2" style="border-radius: 2px; border: none; outline: none; margin-top: 0.5rem; align-items: center; display: flex; border-bottom: 2px solid #915c37; border-top: 2px solid transparent; padding: 0.5rem; ">
+                            <div class="inputform2 categoria" style="border-radius: 2px; border: none; outline: none; margin-top: 0.5rem; align-items: center; display: flex; border-bottom: 2px solid #915c37; border-top: 2px solid transparent; padding: 0.5rem; ">
                                 <label for="categoria" style="color: #814a23;">Categoria</label>
-                                <select id="categoria" name="categoria" style="border: none; outline: none; align-items: center; margin-left: 80px; background-color: #d3beaf;" required>
+                                <select id="categoria" name="categoria" style="border: none; outline: none; align-items: center; margin-left: 44px; background-color: #d3beaf;" required>
                                     <option value="" selected>Selecione</option>
                                     <option value="1">Eventos no Geral</option>
                                     <option value="2">Teatro</option>
@@ -166,14 +238,14 @@ if (isset($_SESSION['logado'])) {
                                     <option value="11">Debates</option>
                                 </select>
                             </div>
-                            <div class="inputform2 ">
-                                <textarea placeholder="Descrição" name="descricao_evento" rows="5" cols="21" style="width: 100%; border-radius: 2px; border: none; outline: none; margin-top: 0.5rem; align-items: center; display: flex; border-bottom: 2px solid #d3beaf; border-top: 2px solid transparent; padding: 0.5rem; "></textarea>
+                            <div class="inputform2 textarea">
+                                <textarea placeholder="Descrição" name="descricao_evento" rows="5" cols="21" style="width: 100%; border-radius: 2px; border: none; outline: none; margin-top: -0.5rem; align-items: center; display: flex; border-bottom: 2px solid #d3beaf; border-top: 2px solid transparent; padding: 0.5rem; "></textarea>
                             </div>
                             <p>
                                 </br>
                                 </br>
                             </p>
-                            <button type="submit" class="button2" style="position: absolute; margin-top: -40px; left: 665px; width: 350px;">Adicionar</button>
+                            <button type="submit" class="button2" style="position: absolute; margin-top: -40px; margin-left: 89px; left: 665px; width: 350px;">Adicionar</button>
                         </form>
                     </div>
                 </section>
@@ -183,25 +255,17 @@ if (isset($_SESSION['logado'])) {
                         </br>
                     </p>
                     <div class="py-4">
-                        <div class="row">
-                            <div class="col-md-7 align-self-center text-md-left text-right">
-                                <ul>
-                                    <li>
-                                        <a href="# "><img src="assets/icon-facebook.svg" /></a>
-                                    </li>
-                                    <li>
-                                        <a href="# "><img src="assets/icon-instagram.svg" /></a>
-                                    </li>
-                                    <li>
-                                        <a href="# "><img src="assets/icon_github.svg" /></a>
-                                    </li>
-                                    <li>
-                                        <a href="# "><img src="assets/icon-whatsapp.svg" /></a>
-                                    </li>
-                                </ul>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-7 align-self-center text-md-left text-right">
+                        <p style="width: 308px; margin-left: 550px;">©Todos os direitos reservados.</p>
+                        <ul>
+                            <li style="color: #bda18e; font-size: 15px; text-align: center; margin-top: -12px;">
+                            Equipe ARQ Cultura
+                            </li>
+                        </ul>
                         </div>
                     </div>
+                </div>
                 </footer>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

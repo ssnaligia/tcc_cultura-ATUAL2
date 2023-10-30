@@ -41,6 +41,16 @@ if (isset($_GET['id_ponto'])) {
             justify-content: center;
         }
 
+        .avaliar {
+            color: #000;
+            font-weight: bold;
+            display: flex;
+            margin-left: -150px;
+            flex-direction: column;
+            flex-wrap: wrap;
+            align-content: space-around;
+        }
+
         .statusT {
             color: #000;
             font-weight: bold;
@@ -72,7 +82,6 @@ if (isset($_GET['id_ponto'])) {
 
 <body>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-BJeoPeE2fBQZVZveqD8m9/xm0JTkZa5wjrPkCue5o/s=" crossorigin="anonymous"></script>
-
     <?php
     if (isset($_SERVER["HTTP_X_REQUESTED_WITH"]) && strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) === "xmlhttprequest") {
         require("sistema_bd.php");
@@ -114,19 +123,40 @@ if (isset($_GET['id_ponto'])) {
     }
     ?>
     <section class="add-ponto" style="margin-top: 380px; margin-right: -140px;">
-    <a class="legend2" href="<?php echo $previousPage; ?>" style="position: absolute;">
-        <span style="position: relative; z-index: 1; right: 640px; top: 50px;">
-            <small style="font-size: 15px;">Voltar</small>
-        </span>
-        <i class="uil uil-arrow-left" style="font-size: 35px; position: relative; top: -15px; z-index: 2; right: 685px; top: 30px;"></i>
-    </a>
+        <a class="legend2" href="<?php echo $previousPage; ?>" style="position: absolute;">
+            <span style="position: relative; z-index: 1; right: 640px; top: 50px;">
+                <small style="font-size: 15px;">Voltar</small>
+            </span>
+            <i class="uil uil-arrow-left" style="font-size: 35px; position: relative; top: -15px; z-index: 2; right: 685px; top: 30px;"></i>
+        </a>
+        <div id="mensagem" style="padding: 3px; width: 435px !important; text-align: center;"></div>
         <p>
             <?php
             include("util/mensagens.php");
             include("util/tempoMsg.php");
             ?>
         </p>
+        <h6 class="subtitle avaliar">Avaliar ponto:</h6>
 
+
+        <form class="form" enctype="multipart/form-data" action="processa.php" method="post">
+
+            <div class="rating" style="padding: 5px 10px; margin-left: 150px">
+                <input type="radio" name="rating" id="star5" value="5"><label for="star5"></label>
+                <input type="radio" name="rating" id="star4" value="4"><label for="star4"></label>
+                <input type="radio" name="rating" id="star3" value="3"><label for="star3"></label>
+                <input type="radio" name="rating" id="star2" value="2"><label for="star2"></label>
+                <input type="radio" name="rating" id="star1" value="1"><label for="star1"></label>
+            </div>
+            </br>
+            <?php
+            $id_ponto = $_SESSION["id_ponto"];
+            ?>
+            <input type="hidden" name="id_ponto" value="<?php echo $id_ponto; ?>">
+            <button type="submit" class="button2" style="font-size: 12px; padding: 5px 10px; margin-left: 160px">Enviar Avaliação</button>
+            <script src="script_star.js"></script>
+        </form>
+        </br>
         <div class="container-form2" style="width: 450px;">
             <?php
             if (isset($_SESSION["id_ponto"])) {
@@ -227,64 +257,64 @@ if (isset($_GET['id_ponto'])) {
             </form>
         </div>
         <div class="areaComentarios" id="areaComentarios">
-        <p>
-                    </br>
-                    </br>
-                </p>
-        <h3 style="color: #000; text-align: center; margin-right: 168px;">COMENTÁRIOS</h3>
+            <p>
+                </br>
+                </br>
+            </p>
+            <h3 style="color: #000; text-align: center; margin-right: 168px;">COMENTÁRIOS</h3>
+            <p>
+                </br>
+            </p>
+            <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] == 1) { ?>
+                <div id="comentario" class="inputform2" style="text-align: center; position: relative;">
+                    <form id="formComentario" action="addComentario.php" method="post">
+                        <input type="hidden" name="id_ponto" value="<?php echo $id_ponto; ?>">
+                        <textarea rows="3" name="comentario" id="id_comentario" placeholder="Digite seu comentário..." style="margin-right: 152px !important; background-color: #e6d3c5; width: 452px; display: inline-block; border-radius: 2px; border: none; outline: none; margin: 0 auto; margin-top: 0; padding: 0.5rem 2rem 0.5rem 0.5rem;" required></textarea>
+                        <a href="" style="text-decoration: none; color: #915c37; position: absolute; top: 10px; right: 300px;">
+                            <button class="btn-reset" type="submit" style="border: none; outline: none; background-color: transparent;"><i class="uil uil-message" style="font-size: 26px; color: #814a23; margin-right: -355px;"></i></button>
+                        </a>
+                    </form>
+                </div>
+                <?php } else { ?><?php } ?>
                 <p>
                     </br>
                 </p>
-                <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] == 1) { ?>
-                    <div id="comentario" class="inputform2" style="text-align: center; position: relative;">
-                        <form id="formComentario" action="addComentario.php" method="post">
-                        <input type="hidden" name="id_ponto" value="<?php echo $id_ponto; ?>">
-                            <textarea rows="3" name="comentario" id="id_comentario" placeholder="Digite seu comentário..." style="margin-right: 152px !important; background-color: #e6d3c5; width: 452px; display: inline-block; border-radius: 2px; border: none; outline: none; margin: 0 auto; margin-top: 0; padding: 0.5rem 2rem 0.5rem 0.5rem;" required></textarea>
-                            <a href="" style="text-decoration: none; color: #915c37; position: absolute; top: 10px; right: 300px;">
-                                <button class="btn-reset" type="submit" style="border: none; outline: none; background-color: transparent;"><i class="uil uil-message" style="font-size: 26px; color: #814a23; margin-right: -355px;"></i></button>
-                            </a>
-                        </form>
-                    </div>
-                    <?php } else { ?><?php } ?>
-                    <p>
-                        </br>
-                    </p>
 
-                    <?php
-                    require_once("database/conecta_bd.php");
-                    $id_ponto = $_SESSION["id_ponto"];
+                <?php
+                require_once("database/conecta_bd.php");
+                $id_ponto = $_SESSION["id_ponto"];
 
-                    $sql = "SELECT c.*, cad.nome FROM Comentarios c
+                $sql = "SELECT c.*, cad.nome FROM Comentarios c
                                 JOIN Cadastro cad ON c.email = cad.email
                                 WHERE c.id_ponto = $id_ponto
                                 ORDER BY c.data_publicacao DESC";
-                    $conexao = obterConexao();
-                    $resultado = mysqli_query($conexao, $sql);
+                $conexao = obterConexao();
+                $resultado = mysqli_query($conexao, $sql);
 
-                    if (mysqli_num_rows($resultado) > 0) {
-                        while ($row = mysqli_fetch_assoc($resultado)) {
-                            $nomeUsuario = $row['nome']; // ou qualquer outra coluna que contenha o nome da pessoa
-                            $dataPublicacao = date('d/m/Y - H:i', strtotime($row['data_publicacao']));
-                            $comentario = $row['comentario'];
-                    ?>
-                            <div class="comentario" style="width: 452px; margin: 0 auto; margin-bottom: 15px; margin-right: 151px;">
-                                <div class="info">
-                                    <h5><?php echo $nomeUsuario; ?></h5>
-                                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                                        <h6 style="color: #ba9880; margin-right: 10px;"><?php echo $dataPublicacao; ?></h6>
-                                        <a href="excluirComentario.php?id=<?php echo $row['id_comentario']; ?>" alt="Excluir"><i class="uil uil-trash-alt" style="font-size: 23px; color: #814a23;"></i></a>
-                                    </div>
+                if (mysqli_num_rows($resultado) > 0) {
+                    while ($row = mysqli_fetch_assoc($resultado)) {
+                        $nomeUsuario = $row['nome']; // ou qualquer outra coluna que contenha o nome da pessoa
+                        $dataPublicacao = date('d/m/Y - H:i', strtotime($row['data_publicacao']));
+                        $comentario = $row['comentario'];
+                ?>
+                        <div class="comentario" style="width: 452px; margin: 0 auto; margin-bottom: 15px; margin-right: 151px;">
+                            <div class="info">
+                                <h5><?php echo $nomeUsuario; ?></h5>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <h6 style="color: #ba9880; margin-right: 10px;"><?php echo $dataPublicacao; ?></h6>
+                                    <a href="excluirComentario.php?id=<?php echo $row['id_comentario']; ?>" alt="Excluir"><i class="uil uil-trash-alt" style="font-size: 23px; color: #814a23;"></i></a>
                                 </div>
-                                <p><?php echo $comentario; ?></p>
                             </div>
+                            <p><?php echo $comentario; ?></p>
+                        </div>
 
-                    <?php
-                        }
-                    } else {
-                        echo "<p style='text-align: center; margin-right: 139px;'>Nenhum comentário encontrado.</p>";
+                <?php
                     }
-                    mysqli_close($conexao);
-                    ?>
+                } else {
+                    echo "<p style='text-align: center; margin-right: 139px;'>Nenhum comentário encontrado.</p>";
+                }
+                mysqli_close($conexao);
+                ?>
     </section>
 </body>
 

@@ -100,10 +100,10 @@ if (isset($_GET['executar_funcao'])) {
             <section class="evento">
                 <h2 class="header title"><span style="position: absolute; margin-top: 20px; font-size: 25px; font-weight: 700;">RECOMENDAÇÕES DE EVENTOS</span></h2>
                 <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] == 1) { ?>
-                    <a class="legend3" href="cadastroEvento.php"><small style="font-size: 15px; position: absolute; right: 115px; top: 162px; color: #915c37">Adicionar</small>
-                        <img src="assets/addEvento.svg" style="position: absolute; right: 130px; top: 125px;" width="38px" height="38px"></img>
+                    <a class="legend3" href="cadastroEvento.php"><small style="font-size: 15px; position: absolute; right: 340px; top: 162px; color: #915c37">Adicionar</small>
+                        <img src="assets/addEvento.svg" style="position: absolute; right: 355px; top: 125px;" width="38px" height="38px"></img>
                     </a>
-                    <a class="legend3" href=""><small style="font-size: 15px; position: absolute; right: 215px; top: 145px; color: #915c37">
+                    <a class="legend3" href=""><small style="font-size: 15px; position: absolute; right: 295px; top: 145px; color: #915c37">
                             <div hidden>
                                 <label for="categorias">
                                     <h7 style="text-transform: uppercase;">preferencias</h6>
@@ -123,7 +123,6 @@ if (isset($_GET['executar_funcao'])) {
                             </div>
                     </a>
                     </small>
-                    <img src="assets/addEvento.svg" style="position: absolute; right: 130px; top: 125px;" width="38px" height="38px"></img>
                     </a>
                 <?php } else {
                 } ?>
@@ -238,27 +237,22 @@ if (isset($_GET['executar_funcao'])) {
                 <footer id="contato">
                     <p>
                         </br>
+                        </br>
+                        </br>
+                        </br>
                     </p>
-                    <div class="py-4" style="margin-top: 400px;">
-                        <div class="row">
-                            <div class="col-md-7 align-self-center text-md-left text-right">
-                                <ul>
-                                    <li>
-                                        <a href="# "><img src="assets/icon-facebook.svg" /></a>
-                                    </li>
-                                    <li>
-                                        <a href="# "><img src="assets/icon-instagram.svg" /></a>
-                                    </li>
-                                    <li>
-                                        <a href="# "><img src="assets/icon_github.svg" /></a>
-                                    </li>
-                                    <li>
-                                        <a href="# "><img src="assets/icon-whatsapp.svg" /></a>
-                                    </li>
-                                </ul>
-                            </div>
+                    <div class="py-4">
+                    <div class="row">
+                        <div class="col-md-7 align-self-center text-md-left text-right">
+                        <p style="width: 308px; margin-left: 550px;">©Todos os direitos reservados.</p>
+                        <ul>
+                            <li style="color: #bda18e; font-size: 15px; text-align: center; margin-top: -12px;">
+                            Equipe ARQ Cultura
+                            </li>
+                        </ul>
                         </div>
                     </div>
+                </div>
                 </footer>
                 <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
                 <script>

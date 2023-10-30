@@ -119,6 +119,9 @@ if (isset($_SESSION['logado'])) {
                         <iframe class="mapa" src="mapaApi.php" allowfullscreen=" " loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     <?php } else { ?>
                         <iframe class="mapa2" src="mapaApi.php" allowfullscreen=" " loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <a class="legend3" href="todosPontos.php"><small style="font-size: 15px; position: absolute; right: 265px; top: 162px; color: #915c37">Ver Pontos</small>
+                            <img src="assets/pontosTodos.png" style="color: #915C37; position: absolute; right: 290px; top: 135px; font-size: 25px;" width="28px" height="28px" alt="map-marker" />
+                        </a>
                     <?php } ?>
                     <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] == 1) { ?>
                         <a class="legend3" href="todosPontos.php"><small style="font-size: 15px; position: absolute; right: 265px; top: 162px; color: #915c37">Ver Pontos</small>
@@ -169,24 +172,18 @@ if (isset($_SESSION['logado'])) {
                 <p>
                     </br>
                     </br>
+                    </br>
+                    </br>
                 </p>
                 <div class="py-4">
                     <div class="row">
                         <div class="col-md-7 align-self-center text-md-left text-right">
-                            <ul>
-                                <li>
-                                    <a href="# "><img src="assets/icon-facebook.svg" /></a>
-                                </li>
-                                <li>
-                                    <a href="# "><img src="assets/icon-instagram.svg" /></a>
-                                </li>
-                                <li>
-                                    <a href="# "><img src="assets/icon_github.svg" /></a>
-                                </li>
-                                <li>
-                                    <a href="# "><img src="assets/icon-whatsapp.svg" /></a>
-                                </li>
-                            </ul>
+                        <p style="width: 308px; margin-left: 550px;">©Todos os direitos reservados.</p>
+                        <ul>
+                            <li style="color: #bda18e; font-size: 15px; text-align: center; margin-top: -12px;">
+                            Equipe ARQ Cultura
+                            </li>
+                        </ul>
                         </div>
                     </div>
                 </div>

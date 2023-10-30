@@ -106,7 +106,7 @@ if (isset($_SESSION['logado'])) {
             content: "";
             position: absolute;
             margin-left: 0px;
-            margin-top: 385px;
+            margin-top: 410px;
             height: 4px;
             width: 30px;
             background-color: #815f46;
@@ -115,8 +115,9 @@ if (isset($_SESSION['logado'])) {
 
         .linha-vertical {
             border-color: #815f46 !important;
-            height: 200px;
+            height: 188px;
             border-left: 3px solid;
+            margin-left: 178px;
         }
 
         .criacoes,
@@ -160,9 +161,9 @@ if (isset($_SESSION['logado'])) {
                             <a class="nav-link" href="comunidade.php">Comunidades</a>
                         </li>
                         <li class="nav-item">
-                        <a class="legend" href="logout.php"><small style="font-size: 15.4px; position: absolute; left: 15px; top: 5px; text-decoration: none; color: #915c37;">Sair</small>
-            <i class="uil uil-signout" style="position: absolute; right:-48px; top: -40px; color: #814a23; font-size: 36px;"></i>
-        </a>
+                            <a class="legend" href="logout.php"><small style="font-size: 15.4px; position: absolute; left: 15px; top: 5px; text-decoration: none; color: #915c37;">Sair</small>
+                                <i class="uil uil-signout" style="position: absolute; right:-48px; top: -40px; color: #814a23; font-size: 36px;"></i>
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a class="legend" href="duvidas.php"><small style="font-size: 15.4px; position: absolute; right: -130px; top: 3px;">Ajuda</small>
@@ -211,13 +212,24 @@ if (isset($_SESSION['logado'])) {
                 </div>
             </div>
             <div class="linha-vertical"></div>
-            <div class="criacoes">
-                <h2 class="titleInfo header title">CRIAÇÕES</h2>
-                <div class="info2"></div>
-                <div class="innerdados">
-                        <span style="margin-top: -77px;">Você criou o Ponto Cultural "Teatro Municipal".</span>
-                </div>
-            </div>
+            <?php
+            $conexao = obterConexao();
+            $consulta = "SELECT nome_ponto FROM PontosCulturais WHERE criador = '$email' AND aprovado = 1 ORDER BY id_ponto DESC LIMIT 3";
+            $resultado = mysqli_query($conexao, $consulta);
+
+            echo '<div class="criacoes" style="margin-left: 156px;">';
+            echo '<h2 class="titleInfo header title">CRIAÇÕES</h2>';
+            echo '<div class="info2"></div>';
+            echo '<div class="innerdados" style="display: flex; flex-direction: row; flex-wrap: wrap;">';
+            while ($row = mysqli_fetch_assoc($resultado)) {
+                $nomePonto = $row['nome_ponto'];
+                echo "<span>Você criou o Ponto Cultural \"$nomePonto\".</span><br>";
+            }
+
+            echo '</div>';
+            echo '</div>';
+            ?>
+
         </div>
     </div>
 </body>

@@ -161,27 +161,18 @@ if (isset($_SESSION['logado'])) {
                     <a href="mailto:adm.ofc.arq@gmail.com" class="btn btn-light button mb-3 d-md-inline d-block w-100">Enviar dúvida</a>
                 </div>
             </div>
-            <div class=" py-4">
-                <div class="row">
-                    <div class="col-md-7 align-self-center text-md-left text-right">
+            <div class="py-4">
+                    <div class="row">
+                        <div class="col-md-7 align-self-center text-md-left text-right">
+                        <p style="width: 308px; margin-left: 550px;">©Todos os direitos reservados.</p>
                         <ul>
-                            <li>
-                                <a href="#"><img src="assets/icon-facebook.svg" /></a>
-                            </li>
-                            <li>
-                                <a href="#"><img src="assets/icon-instagram.svg" /></a>
-                            </li>
-                            <li>
-                                <a href="#"><img src="assets/icon_github.svg" /></a>
-                            </li>
-                            <li>
-                                <a href="#"><img src="assets/icon-whatsapp.svg" /></a>
+                            <li style="color: #bda18e; font-size: 15px; text-align: center; margin-top: -12px;">
+                            Equipe ARQ Cultura
                             </li>
                         </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
     </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

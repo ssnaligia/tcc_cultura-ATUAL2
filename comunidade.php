@@ -161,7 +161,7 @@ if (isset($_GET['executar_funcao'])) {
                         echo '<img src="assets/comunidade.png" width="80px" height="80px">';
                         echo '</div>';
                         echo '<h2 class="title" style="font-weight: 700;">' . $comunidade['nome_comunidade'] . '</h2>';
-                        echo '<h6>Qntd de Membros: 07 usuários</h6>';
+                        echo '<h6>Qntd de Membros: ' . $numMembros . ' usuário(s)</h6>';
                         echo '<h7>Idade Mínima: ' . $comunidade['idade_minima'] . '</h7>';
                         echo '<br><br>';
                         echo '<h7>Descrição:  ' . $comunidade['descricao_comunidade'] . '</h7>';
@@ -188,8 +188,8 @@ if (isset($_GET['executar_funcao'])) {
                 <br>
             </p>
             <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] == 1) { ?>
-                <a class="legend3" href="addComunidade.php"><small style="font-size: 15px; position: absolute; right: 105px; top: 162px; color: #915c37">Adicionar</small>
-                    <i class="uil uil-comment-alt-plus" style="color: #915C37; position: absolute; right: 130px; top: 135px; font-size: 25px;" width="38px" height="38px"></i>
+                <a class="legend3" href="addComunidade.php"><small style="font-size: 15px; position: absolute; right: 325px; top: 162px; color: #915c37">Adicionar</small>
+                    <i class="uil uil-comment-alt-plus" style="color: #915C37; position: absolute; right: 347px; top: 135px; font-size: 25px;" width="38px" height="38px"></i>
                 </a>
             <?php } else {
             } ?>
@@ -197,24 +197,21 @@ if (isset($_GET['executar_funcao'])) {
                 <p>
                     <br>
                     <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                 </p>
                 <div class="py-4">
                     <div class="row">
                         <div class="col-md-7 align-self-center text-md-left text-right">
-                            <ul>
-                                <li>
-                                    <a href="# "><img src="assets/icon-facebook.svg" /></a>
-                                </li>
-                                <li>
-                                    <a href="# "><img src="assets/icon-instagram.svg" /></a>
-                                </li>
-                                <li>
-                                    <a href="# "><img src="assets/icon_github.svg" /></a>
-                                </li>
-                                <li>
-                                    <a href="# "><img src="assets/icon-whatsapp.svg" /></a>
-                                </li>
-                            </ul>
+                        <p style="width: 308px; margin-left: 550px;">©Todos os direitos reservados.</p>
+                        <ul>
+                            <li style="color: #bda18e; font-size: 15px; text-align: center; margin-top: -12px;">
+                            Equipe ARQ Cultura
+                            </li>
+                        </ul>
                         </div>
                     </div>
                 </div>
