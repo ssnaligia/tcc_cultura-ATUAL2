@@ -127,7 +127,7 @@ if (!isset($_SESSION)) {
                     </div>
                     <p id="mensagem"></p>
                     <div class="input-field button-cadastro">
-                        <input type="submit" style="margin-top: -3%; text-align: center; background-color: #915c37; border: none; color: #fff; font-size: 17px; font-weight: 500; letter-spacing: 1px; border-radius: 6px; padding: .5rem 8.5rem;" id="btn_cadastro" disabled>Cadastrar</input>
+                        <button type="submit" style="margin-top: -3%; text-align: center; background-color: #915c37; border: none; color: #fff; font-size: 17px; font-weight: 500; letter-spacing: 1px; border-radius: 6px; padding: .5rem 8.5rem;" id="btn_cadastro" disabled>Cadastrar</button>
                     </div>
                 </form>
                 <div class="cadastro-signup">

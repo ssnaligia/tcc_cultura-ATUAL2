@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $sql = "INSERT INTO Imagens (id_ponto, diretorio_imagem) VALUES ('$id_ponto', '$diretorio_salvo')";
                 mysqli_query($conexao, $sql);
                 mysqli_close($conexao);
-                header("Location: mostrarPontos.php");
+                header("Location: pontosCulturais.php");
             } else {
                 $_SESSION["msg"] = "Erro ao salvar a imagem.";
                 $_SESSION["tipo_msg"] = "alert-danger";

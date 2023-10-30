@@ -64,10 +64,12 @@ CREATE TABLE Preferencias (
 
 CREATE TABLE Comentarios (
   id_comentario INT AUTO_INCREMENT,
+  id_ponto INT, 
   comentario TEXT,
   data_publicacao DATETIME,
   email VARCHAR(100),
   PRIMARY KEY (id_comentario, email),
+  FOREIGN KEY (id_ponto) REFERENCES PontosCulturais (id_ponto) ON DELETE CASCADE,
   FOREIGN KEY (email) REFERENCES Cadastro (email) ON DELETE CASCADE
 );
 

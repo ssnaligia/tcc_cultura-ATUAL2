@@ -10,7 +10,7 @@ if (isset($_GET['id'])) {
     $resultado = mysqli_query($conexao, $sql);
 
     if ($resultado) {
-        header("Location: pontosCulturais.php");
+        header("Location: mostrarPontos.php?id_ponto=$id_ponto#areaComentarios");
         exit();
     } else {
         echo "Erro ao excluir o comentário.";

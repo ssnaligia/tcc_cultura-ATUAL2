@@ -18,7 +18,7 @@ if(isset($_POST['btn_select'])) {
         if($query_update_run) {
             $_SESSION["msg"] = "Preferências cadastradas com sucesso!";
             $_SESSION["tipo_msg"] = "alert-success";
-            header("Location: notificacoes.php");    
+            header("Location: index.php");    
         } else {
             $_SESSION["msg"] = "Erro ao atualizar o campo primeiro_login!";
             $_SESSION["tipo_msg"] = "alert-danger";

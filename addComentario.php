@@ -6,6 +6,7 @@ if (!isset($_SESSION)) {
 
 $email = $_SESSION['usuario_logado'];
 $comentario = $_POST["comentario"];
+$id_ponto = $_POST["id_ponto"];
 
-inserirComentario($comentario, $email);
+inserirComentario($id_ponto, $comentario, $email);
 ?>

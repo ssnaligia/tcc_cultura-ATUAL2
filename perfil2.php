@@ -21,7 +21,7 @@ if (isset($_SESSION['logado'])) {
 <head>
     <style>
         .quadrado {
-            background-color: #915C37;
+            background-color: #815f46;
             border-radius: 20px;
             color: white;
             display: flex;
@@ -66,7 +66,7 @@ if (isset($_SESSION['logado'])) {
 
         .btn-acao:hover {
             text-decoration: none;
-            color: #915C37;
+            color: #bda18e;
         }
 
         .innerdados {
@@ -77,7 +77,7 @@ if (isset($_SESSION['logado'])) {
         .leftdados {
             display: flex;
             flex-direction: column;
-            color: #915C37;
+            color: #915c37;
             font-style: normal;
             font-weight: 600;
             line-height: normal;
@@ -109,16 +109,14 @@ if (isset($_SESSION['logado'])) {
             margin-top: 385px;
             height: 4px;
             width: 30px;
-            background-color: #915C37;
+            background-color: #815f46;
             border-radius: 25px;
         }
 
         .linha-vertical {
-            border-color: #915C37 !important;
+            border-color: #815f46 !important;
             height: 200px;
-            /*Altura da linha*/
             border-left: 3px solid;
-            /* Adiciona borda esquerda na div como ser fosse uma linha.*/
         }
 
         .criacoes,

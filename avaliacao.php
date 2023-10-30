@@ -15,8 +15,7 @@ session_start();
 </head>
 <div id="header">
     <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <a href="<?php echo (isset($_SESSION['logado']) && $_SESSION['logado'] == 1) ? 'public/indexUsuario.php' : 'index.php'; ?>"><img src="assets/logo.svg" class="navbar-brand img-fluid" height="200" width="200" /></a>
+        <img src="assets/logo.svg" class="navbar-brand img-fluid" height="200" width="200" /></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav ml-auto">

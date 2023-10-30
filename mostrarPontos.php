@@ -9,6 +9,21 @@ if (isset($_SESSION['logado'])) {
     buscarNomeUser($email);
 }
 $previousPage = $_SERVER['HTTP_REFERER'];
+
+if (isset($_GET['id_ponto'])) {
+    $id_ponto = (int)$_GET['id_ponto'];
+    $_SESSION["id_ponto"] = $id_ponto;
+
+    $conexao = obterConexao();
+    $sql = "SELECT * FROM PontosCulturais WHERE id_ponto = $id_ponto";
+    $result = mysqli_query($conexao, $sql);
+    $row = mysqli_fetch_assoc($result);
+
+    if (!$row) {
+        header("Location: pagina_de_erro.php");
+        exit;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -98,11 +113,13 @@ $previousPage = $_SERVER['HTTP_REFERER'];
         }
     }
     ?>
-
-    <section class="add-ponto">
-        <a href="<?php echo $previousPage; ?>"><i class="uil uil-arrow-left seta" style="font-size: 35px;"></i></a>
-        <div id="mensagem" style="padding: 3px; size: 5px; text-align: center;"></div>
-
+    <section class="add-ponto" style="margin-top: 380px; margin-right: -140px;">
+    <a class="legend2" href="<?php echo $previousPage; ?>" style="position: absolute;">
+        <span style="position: relative; z-index: 1; right: 640px; top: 50px;">
+            <small style="font-size: 15px;">Voltar</small>
+        </span>
+        <i class="uil uil-arrow-left" style="font-size: 35px; position: relative; top: -15px; z-index: 2; right: 685px; top: 30px;"></i>
+    </a>
         <p>
             <?php
             include("util/mensagens.php");
@@ -110,12 +127,11 @@ $previousPage = $_SERVER['HTTP_REFERER'];
             ?>
         </p>
 
-        <div class="container-form2">
+        <div class="container-form2" style="width: 450px;">
             <?php
             if (isset($_SESSION["id_ponto"])) {
                 $id_ponto = $_SESSION["id_ponto"];
             } else {
-                echo "A variável de sessão 'id_ponto' não está definida.";
             }
             $sql = "SELECT * FROM PontosCulturais WHERE id_ponto = $id_ponto";
             $conexao = obterConexao();
@@ -127,8 +143,6 @@ $previousPage = $_SERVER['HTTP_REFERER'];
                 <h6 class="statusS"><?php echo $aprovado = ($row['aprovado'] == 0) ? 'Pendente à Avaliação' : 'Aprovado'; ?></h6>
                 </br>
                 <h3 class="title" style="color: #000;"><?php echo $row['nome_ponto']; ?></h3>
-
-
                 <div class="inputform2" style="margin-top: 0.5rem;">
                     <input type="text" placeholder="Endereço" name="endereco" id="id_endereco" value="<?php echo $row['endereco']; ?>" readonly required>
                 </div>
@@ -212,6 +226,65 @@ $previousPage = $_SERVER['HTTP_REFERER'];
                 <input type="hidden" name="id_ponto" value="<?php echo $id_ponto; ?>">
             </form>
         </div>
+        <div class="areaComentarios" id="areaComentarios">
+        <p>
+                    </br>
+                    </br>
+                </p>
+        <h3 style="color: #000; text-align: center; margin-right: 168px;">COMENTÁRIOS</h3>
+                <p>
+                    </br>
+                </p>
+                <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] == 1) { ?>
+                    <div id="comentario" class="inputform2" style="text-align: center; position: relative;">
+                        <form id="formComentario" action="addComentario.php" method="post">
+                        <input type="hidden" name="id_ponto" value="<?php echo $id_ponto; ?>">
+                            <textarea rows="3" name="comentario" id="id_comentario" placeholder="Digite seu comentário..." style="margin-right: 152px !important; background-color: #e6d3c5; width: 452px; display: inline-block; border-radius: 2px; border: none; outline: none; margin: 0 auto; margin-top: 0; padding: 0.5rem 2rem 0.5rem 0.5rem;" required></textarea>
+                            <a href="" style="text-decoration: none; color: #915c37; position: absolute; top: 10px; right: 300px;">
+                                <button class="btn-reset" type="submit" style="border: none; outline: none; background-color: transparent;"><i class="uil uil-message" style="font-size: 26px; color: #814a23; margin-right: -355px;"></i></button>
+                            </a>
+                        </form>
+                    </div>
+                    <?php } else { ?><?php } ?>
+                    <p>
+                        </br>
+                    </p>
+
+                    <?php
+                    require_once("database/conecta_bd.php");
+                    $id_ponto = $_SESSION["id_ponto"];
+
+                    $sql = "SELECT c.*, cad.nome FROM Comentarios c
+                                JOIN Cadastro cad ON c.email = cad.email
+                                WHERE c.id_ponto = $id_ponto
+                                ORDER BY c.data_publicacao DESC";
+                    $conexao = obterConexao();
+                    $resultado = mysqli_query($conexao, $sql);
+
+                    if (mysqli_num_rows($resultado) > 0) {
+                        while ($row = mysqli_fetch_assoc($resultado)) {
+                            $nomeUsuario = $row['nome']; // ou qualquer outra coluna que contenha o nome da pessoa
+                            $dataPublicacao = date('d/m/Y - H:i', strtotime($row['data_publicacao']));
+                            $comentario = $row['comentario'];
+                    ?>
+                            <div class="comentario" style="width: 452px; margin: 0 auto; margin-bottom: 15px; margin-right: 151px;">
+                                <div class="info">
+                                    <h5><?php echo $nomeUsuario; ?></h5>
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <h6 style="color: #ba9880; margin-right: 10px;"><?php echo $dataPublicacao; ?></h6>
+                                        <a href="excluirComentario.php?id=<?php echo $row['id_comentario']; ?>" alt="Excluir"><i class="uil uil-trash-alt" style="font-size: 23px; color: #814a23;"></i></a>
+                                    </div>
+                                </div>
+                                <p><?php echo $comentario; ?></p>
+                            </div>
+
+                    <?php
+                        }
+                    } else {
+                        echo "<p style='text-align: center; margin-right: 139px;'>Nenhum comentário encontrado.</p>";
+                    }
+                    mysqli_close($conexao);
+                    ?>
     </section>
 </body>
 

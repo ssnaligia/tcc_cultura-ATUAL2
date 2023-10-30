@@ -6,15 +6,18 @@ function exibirMsg() {
     if (!empty($_SESSION["tipo_msg"])) {
       $tipo_msg = $_SESSION["tipo_msg"];
     }
-  }
-  if (!empty($mensagem)) :
+    
+    // Exiba a mensagem
+    if (!empty($mensagem)) :
 ?>
     <p class="alert <?= $tipo_msg ?> text-center" style="padding: 3px; size: 5px; text-align: center;">
       <?= $mensagem ?>
     </p>
 <?php
-  endif;
-  $_SESSION["msg"] = "";
-}
+    endif;
 
+    // Limpe a variável de sessão
+    unset($_SESSION["msg"]);
+  }
+}
 ?>

@@ -38,8 +38,6 @@ if (isset($_SESSION['logado'])) {
             });
         }
     </script>
-
-
     <style>
         .ativado {
             color: #915c37 !important;
@@ -167,69 +165,6 @@ if (isset($_SESSION['logado'])) {
                         <?php } else { ?><?php } ?>
                 </div>
             </section>
-            <div class="areaComentarios" id="areaComentarios">
-                <p>
-                    </br>
-                    </br>
-                    </br>
-                    </br>
-                    </br>
-                    </br>
-                </p>
-
-                <h3 style="color: #000; text-align: center;">COMENTÁRIOS</h3>
-                <p>
-                    </br>
-                </p>
-                <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] == 1) { ?>
-                    <div id="comentario" class="inputform2" style="text-align: center; position: relative;">
-                        <form id="formComentario" action="addComentario.php" method="post">
-                            <textarea rows="3" name="comentario" id="id_comentario" placeholder="Digite seu comentário..." style="background-color: #e6d3c5; width: 600px; display: inline-block; border-radius: 2px; border: none; outline: none; margin: 0 auto; margin-top: 0; padding: 0.5rem 2rem 0.5rem 0.5rem;" required></textarea>
-                            <a href="" style="text-decoration: none; color: #915c37; position: absolute; top: 10px; right: 300px;">
-                                <button class="btn-reset" type="submit" style="border: none; outline: none; background-color: transparent;"><i class="uil uil-message" style="font-size: 26px; color: #814a23;"></i></button>
-                            </a>
-                        </form>
-                    </div>
-                    <?php } else { ?><?php } ?>
-                    <p>
-                        </br>
-                    </p>
-
-                    <?php
-                    require_once("database/conecta_bd.php");
-
-                    $sql = "SELECT c.*, cad.nome FROM Comentarios c
-                                JOIN Cadastro cad ON c.email = cad.email
-                                ORDER BY c.data_publicacao DESC";
-                    $conexao = obterConexao();
-                    $resultado = mysqli_query($conexao, $sql);
-
-                    if (mysqli_num_rows($resultado) > 0) {
-                        while ($row = mysqli_fetch_assoc($resultado)) {
-                            $nomeUsuario = $row['nome']; // ou qualquer outra coluna que contenha o nome da pessoa
-                            $dataPublicacao = date('d/m/Y - H:i', strtotime($row['data_publicacao']));
-                            $comentario = $row['comentario'];
-                    ?>
-                            <div class="comentario" style="width: 600px; margin: 0 auto; margin-bottom: 15px;">
-                                <div class="info">
-                                    <h5><?php echo $nomeUsuario; ?></h5>
-                                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                                        <h6 style="color: #ba9880; margin-right: 10px;"><?php echo $dataPublicacao; ?></h6>
-                                        <a href="excluirComentario.php?id=<?php echo $row['id_comentario']; ?>" alt="Excluir"><i class="uil uil-trash-alt" style="font-size: 23px; color: #814a23;"></i></a>
-                                    </div>
-                                </div>
-                                <p><?php echo $comentario; ?></p>
-                            </div>
-
-                    <?php
-                        }
-                    } else {
-                        echo "<p style='text-align: center;'>Nenhum comentário encontrado.</p>";
-                    }
-                    mysqli_close($conexao);
-                    ?>
-
-            </div>
             <footer id="contato">
                 <p>
                     </br>

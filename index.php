@@ -18,6 +18,35 @@ if (isset($_SESSION['logado'])) {
 <link rel="stylesheet" href="css/main.css" />
 <title>Início - ARQ Cultura</title>
 <style>
+    .bodyBusca {
+        color: #fff;
+    }
+
+    .container {
+        margin-top: 10px;
+        left: 10px;
+    }
+
+    .search-box {
+        width: 228px;
+        padding: 11px;
+        border: none;
+        border-radius: 7px;
+        font-size: 13px;
+        margin-left: 80px;
+        background-color: #d3beaf;
+    }
+
+    .search-button {
+        background-color: #915C37;
+        color: #fff;
+        border: none;
+        border-radius: 7px;
+        padding: 14px 10px;
+        font-size: 13px;
+        cursor: pointer;
+    }
+
     .ativado {
         color: #915c37 !important;
         font-weight: bolder !important;
@@ -67,8 +96,6 @@ if (isset($_SESSION['logado'])) {
     </div>
 </div>
 
-
-
 <body>
     <div class="container pt-5">
         <div class="row">
@@ -78,7 +105,20 @@ if (isset($_SESSION['logado'])) {
                 <a href="#sobre" class="btn button-secondary btn-secondary button d-md-inline-block d-block mb-md-0 mb-2 mr-md-2">Saiba mais</a>
             </div>
             <div class="col-lg-8 col-md-6">
-                <img src="assets/slider.gif" class="slider" />
+                <form method="get" action="buscaTudo.php">
+                    <input type="text" class="search-box" name="palavraChave" id="palavraChave" placeholder="Digite uma palavra-chave" style="color: #fff; margin-left: 626px; position: relative; margin-top: -141px;" required>
+                    <button type="submit" class="search-button" style="margin-left: 755px; margin-top: 53px;">Pesquisar</button>
+                    <div clas="radioBusca" style="margin-left: 518px; margin-top: 6px; font-size: 14px;">
+                        <input type="radio" id="pontos" name="busca" value="pontos" required>
+                        <label for="pontos">Pontos Culturais</label><br>
+                        <input type="radio" id="eventos" name="busca" value="eventos">
+                        <label for="eventos">Eventos</label><br>
+                        <input type="radio" id="comunidade" name="busca" value="comunidade">
+                        <label for="comunidade">Comunidades</label><br>
+                    </div>
+                </form>
+                </br></br>
+                <img style="margin-top: -42px;" src="assets/slider.gif" class="slider" />
             </div>
         </div>
         <div id="sobre"></div>
@@ -93,7 +133,7 @@ if (isset($_SESSION['logado'])) {
                     </br>
                 </p>
                 <div class="col-md-6 align-self text-center order-md-1 order-2">
-                    <img src="assets/sobre.svg" class="img-fluid" height="200" width="180" />
+                    <img src="assets/SOBRE.svg" class="img-fluid" height="700" width="580" />
                 </div>
                 <div class="col-md-6 col-md-4  align-self-center order-md-2 order-1 mb-md-0 mb-4">
                     <h2 class="title">Saiba mais</h2>

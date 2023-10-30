@@ -246,21 +246,21 @@ function perfilUsuario($email)
   return [$perfil];
 }
 
-function inserirComentario($comentario, $email)
+function inserirComentario($id_ponto, $comentario, $email)
 {
-  $sql = "INSERT INTO Comentarios (comentario, data_publicacao, email) VALUES (?, NOW(), ?)";
+  $sql = "INSERT INTO Comentarios (id_ponto, comentario, data_publicacao, email) VALUES (?, ?, NOW(), ?)";
   $conexao = obterConexao();
   $stmt = $conexao->prepare($sql);
-  $stmt->bind_param("ss", $comentario, $email);
+  $stmt->bind_param("iss", $id_ponto, $comentario, $email);
   if ($stmt->execute()) {
     $_SESSION["msg"] = "Comentário enviado com sucesso!";
     $_SESSION["tipo_msg"] = "alert-success";
-    header("Location: pontosCulturais.php#areaComentarios");
+    header("Location: mostrarPontos.php?id_ponto=$id_ponto#areaComentarios");
     die();
   } else {
     $_SESSION["msg"] = "Erro ao enviar o comentário. Tente novamente!";
     $_SESSION["tipo_msg"] = "alert-danger";
-    header("Location: pontosCulturais.php");
+    header("Location: mostrarPontos.phpid_ponto=$id_ponto");
     die();
   }
   $stmt->close();
@@ -321,7 +321,7 @@ function inserirPonto($criador, $nome, $endereco, $descricao, $categoria) {
       $_SESSION["msg"] = "Ponto Cultural \"" . $nome . "\" inserido com sucesso!";
       $_SESSION["tipo_msg"] = "alert-success";
       return $conexao->insert_id;
-      header("Location: mostrarPontos.php");
+      header("Location: pontosCulturais.php");
     } else {
       $_SESSION["msg"] = "Falha ao inserir o ponto.";
       $_SESSION["tipo_msg"] = "alert-danger";
