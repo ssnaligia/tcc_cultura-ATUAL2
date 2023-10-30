@@ -25,6 +25,17 @@ if (isset($_SESSION['logado'])) {
             font-weight: bolder !important;
             border-bottom: solid 4px var(--primary) !important;
         }
+
+        .form .title::before {
+            content: "";
+            position: absolute;
+            left: 790px;
+            top: 226px;
+            height: 3px;
+            width: 30px;
+            background-color: #915c37;
+            border-radius: 25px;
+        }
     </style>
 </head>
 <div id="header">
@@ -98,7 +109,7 @@ if (isset($_SESSION['logado'])) {
                                 </br>
                                 </br>
                             </p>
-                            <button type="submit" class="button2" style="position: absolute; margin-top: -40px; left: 680px; width: 350px;">Adicionar</button>
+                            <button type="submit" class="button2" style="position: absolute; margin-left: 95px; margin-top: -40px; left: 680px; width: 350px;">Adicionar</button>
                     </form>
                 </div>
             </section>
@@ -106,24 +117,22 @@ if (isset($_SESSION['logado'])) {
                 <p>
                     </br>
                     </br>
+                    </br>
+                    </br>
+                    </br>
+                    </br>
+                    </br>
+                    </br>
                 </p>
                 <div class="py-4">
                     <div class="row">
                         <div class="col-md-7 align-self-center text-md-left text-right">
-                            <ul>
-                                <li>
-                                    <a href="# "><img src="assets/icon-facebook.svg" /></a>
-                                </li>
-                                <li>
-                                    <a href="# "><img src="assets/icon-instagram.svg" /></a>
-                                </li>
-                                <li>
-                                    <a href="# "><img src="assets/icon_github.svg" /></a>
-                                </li>
-                                <li>
-                                    <a href="# "><img src="assets/icon-whatsapp.svg" /></a>
-                                </li>
-                            </ul>
+                        <p style="width: 308px; margin-left: 550px;">©Todos os direitos reservados.</p>
+                        <ul>
+                            <li style="color: #bda18e; font-size: 15px; text-align: center; margin-top: -12px;">
+                            Equipe ARQ Cultura
+                            </li>
+                        </ul>
                         </div>
                     </div>
                 </div>

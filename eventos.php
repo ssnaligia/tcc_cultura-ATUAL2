@@ -238,27 +238,22 @@ if (isset($_GET['executar_funcao'])) {
                 <footer id="contato">
                     <p>
                         </br>
+                        </br>
+                        </br>
+                        </br>
                     </p>
-                    <div class="py-4" style="margin-top: 400px;">
-                        <div class="row">
-                            <div class="col-md-7 align-self-center text-md-left text-right">
-                                <ul>
-                                    <li>
-                                        <a href="# "><img src="assets/icon-facebook.svg" /></a>
-                                    </li>
-                                    <li>
-                                        <a href="# "><img src="assets/icon-instagram.svg" /></a>
-                                    </li>
-                                    <li>
-                                        <a href="# "><img src="assets/icon_github.svg" /></a>
-                                    </li>
-                                    <li>
-                                        <a href="# "><img src="assets/icon-whatsapp.svg" /></a>
-                                    </li>
-                                </ul>
-                            </div>
+                    <div class="py-4">
+                    <div class="row">
+                        <div class="col-md-7 align-self-center text-md-left text-right">
+                        <p style="width: 308px; margin-left: 550px;">©Todos os direitos reservados.</p>
+                        <ul>
+                            <li style="color: #bda18e; font-size: 15px; text-align: center; margin-top: -12px;">
+                            Equipe ARQ Cultura
+                            </li>
+                        </ul>
                         </div>
                     </div>
+                </div>
                 </footer>
                 <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
                 <script>

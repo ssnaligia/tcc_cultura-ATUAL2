@@ -115,10 +115,51 @@ $offset = ($paginaAtual - 1) * $pontosPorPagina;
             background-color: #fff;
             border: 1px solid #dee2e6;
         }
+
+        .filtro {
+            position: fixed;
+            right: 37px;
+            top: 85px;
+        }
+
+        .botaoFiltro {
+            margin-top: 6px;
+            margin-left: 323px;
+            background-color: #915C37;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 5px 10px;
+            font-size: 13px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
 <body>
+    <div class="filtro">
+        <form id="filtroForm" action="filtro.php" method="post">
+            <div class="inputform2" style="border-radius: 2px; border: none; outline: none; margin-top: 0.5rem; align-items: center; display: flex; border-bottom: 2px solid #915c37; border-top: 2px solid transparent; padding: 0.5rem; ">
+                <label for="categoria" style="color: #814a23;">Categoria</label>
+                <select id="categoria" name="categoria" style="border: none; outline: none; align-items: center; margin-left: 55px; background-color: #d3beaf;" required>
+                    <option value="" selected>Todas</option>
+                    <option value="1">Eventos no Geral</option>
+                    <option value="2">Teatro</option>
+                    <option value="3">Dança</option>
+                    <option value="4">Literatura</option>
+                    <option value="5">Música</option>
+                    <option value="6">Política</option>
+                    <option value="7">Esporte</option>
+                    <option value="8">Manifestações Religiosas</option>
+                    <option value="9">Entretenimento/Cinema</option>
+                    <option value="10">Shows</option>
+                    <option value="11">Debates</option>
+                </select>
+            </div>
+            <input class="botaoFiltro" type="submit" value="Filtrar">
+        </form>
+    </div>
+
     <a class="legend2" href="pontosCulturais.php" style="position: absolute;">
         <span style="position: relative; z-index: 1; right: 940px; top: 50px;">
             <small style="font-size: 15px;">Voltar</small>
@@ -127,6 +168,7 @@ $offset = ($paginaAtual - 1) * $pontosPorPagina;
     </a>
     <h3 style="color: #000; text-align: center; position: absolute; margin-left: 30px; margin-top: -620px;">TODOS OS PONTOS</h3>
     <div id="mensagem" style="padding: 3px; size: 5px; text-align: center;"></div>
+
 
     <div class="areaTdsPontos" id="areaTdsPontos">
         <h3 style="color: #000; text-align: center; z-index: 1;"></h3>

@@ -117,10 +117,12 @@ CREATE TABLE EscolhasUsuario (
 );
 
 CREATE TABLE Avaliacoes (
+    id_ponto INT,
     id_avaliacao INT AUTO_INCREMENT,
     qnt_estrela INT,
     criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (id_avaliacao)
+    PRIMARY KEY (id_avaliacao),
+    FOREIGN KEY (id_ponto) REFERENCES PontosCulturais (id_ponto) ON DELETE CASCADE
 );
 
 CREATE TABLE Comunidade (

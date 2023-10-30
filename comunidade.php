@@ -161,7 +161,7 @@ if (isset($_GET['executar_funcao'])) {
                         echo '<img src="assets/comunidade.png" width="80px" height="80px">';
                         echo '</div>';
                         echo '<h2 class="title" style="font-weight: 700;">' . $comunidade['nome_comunidade'] . '</h2>';
-                        echo '<h6>Qntd de Membros: 07 usuários</h6>';
+                        echo '<h6>Qntd de Membros: ' . $numMembros . ' usuário(s)</h6>';
                         echo '<h7>Idade Mínima: ' . $comunidade['idade_minima'] . '</h7>';
                         echo '<br><br>';
                         echo '<h7>Descrição:  ' . $comunidade['descricao_comunidade'] . '</h7>';
@@ -197,24 +197,21 @@ if (isset($_GET['executar_funcao'])) {
                 <p>
                     <br>
                     <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                 </p>
                 <div class="py-4">
                     <div class="row">
                         <div class="col-md-7 align-self-center text-md-left text-right">
-                            <ul>
-                                <li>
-                                    <a href="# "><img src="assets/icon-facebook.svg" /></a>
-                                </li>
-                                <li>
-                                    <a href="# "><img src="assets/icon-instagram.svg" /></a>
-                                </li>
-                                <li>
-                                    <a href="# "><img src="assets/icon_github.svg" /></a>
-                                </li>
-                                <li>
-                                    <a href="# "><img src="assets/icon-whatsapp.svg" /></a>
-                                </li>
-                            </ul>
+                        <p style="width: 308px; margin-left: 550px;">©Todos os direitos reservados.</p>
+                        <ul>
+                            <li style="color: #bda18e; font-size: 15px; text-align: center; margin-top: -12px;">
+                            Equipe ARQ Cultura
+                            </li>
+                        </ul>
                         </div>
                     </div>
                 </div>

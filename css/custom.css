@@ -517,7 +517,7 @@ html {
 
 .container-form {
   margin-left: 255px;
-  display: flex;
+  display: flex !important;
   align-items: center;
   display: flex;
   padding: 40px;
