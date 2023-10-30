@@ -163,7 +163,7 @@ if (isset($_SESSION['logado'])) {
                                 </br>
                                 </br>
                             </p>
-                            <button type="submit" class="button2" style="align-itens: center; width: 160px;">Adicionar</button>
+                            <button type="submit" class="button2" style="align-items: center; width: 160px;">Adicionar</button>
                         </form>
                         <?php } else { ?><?php } ?>
                 </div>
