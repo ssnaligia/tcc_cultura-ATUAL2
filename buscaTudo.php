@@ -147,6 +147,7 @@
                 echo '<h3>' . $linha['nome_evento'] . '</h3>';
                 echo '</div>';
                 echo '<p><i class="uil uil-calendar-alt"></i> ' . $data_evento_formatada . '</p>';
+                echo '<a href="eventos.php">Ver mais</a>';
                 echo '</div>'; 
                 echo '</div>'; 
                 echo '</div>';
@@ -172,6 +173,8 @@
                         echo '</div>';
                         echo '<h2 class="title" style="font-weight: 700;">' . $linha['nome_comunidade'] . '</h2>';
                         echo '<h7>Descrição:  ' . $linha['descricao_comunidade'] . '</h7>';
+                        echo '<br>';
+                        echo '<a href="comunidade.php">Ver mais</a>';
                         echo '<br><br>';
                         echo '</div>'; 
                         echo '</div>'; 

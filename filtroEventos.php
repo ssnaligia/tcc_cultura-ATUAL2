@@ -9,7 +9,7 @@ require("sistema_bd.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-    <title>Filtro - Pontos Culturais</title>
+    <title>Filtro - Eventos</title>
     <style>
         body {
             display: flex;
@@ -78,7 +78,7 @@ require("sistema_bd.php");
 </head>
 
 <body>
-<a class="legend2" href="todosPontos.php" style="position: absolute;">
+<a class="legend2" href="eventos.php" style="position: absolute;">
         <span style="position: relative; z-index: 1; right: 685px; top: 10px;">
             <small style="font-size: 15px;">Voltar</small>
         </span>
@@ -87,17 +87,18 @@ require("sistema_bd.php");
     <?php
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $categoria = $_POST["categoria"];
-        $filtro_categoria = !empty($categoria) ? " WHERE p.categoria = " . (int)$categoria : "";
-        $sql = "SELECT p.id_ponto, p.nome_ponto, p.descricao, p.endereco, i.diretorio_imagem 
-            FROM PontosCulturais p
-            LEFT JOIN Imagens i ON p.id_ponto = i.id_ponto" . $filtro_categoria;
+        $filtro_categoria = !empty($categoria) ? " WHERE categoria = " . (int)$categoria : "";
+    
+        $sql = "SELECT id_evento, nome_evento, descricao_evento, data_evento
+                FROM Eventos" . $filtro_categoria;
+    
         $conexao = obterConexao();
         $resultado = $conexao->query($sql);
     ?>
-        <div id="#resultados-filtro" style="margin-left: 232px;">
+        <div id="resultados-filtro" style="margin-left: 232px;">
         <?php
         if ($resultado->num_rows > 0) {
-            while ($ponto = $resultado->fetch_assoc()) {
+            while ($evento = $resultado->fetch_assoc()) {
                 $categoria = $_POST["categoria"];
                 switch ($categoria) {
                     case 1:
@@ -134,16 +135,21 @@ require("sistema_bd.php");
                         $categoria = "Debates";
                         break;
                 }
-                echo '<section class="box-container" style="">';
-                echo '<div class="formEst2">';
-                echo '<h3 style="color: #000; text-align: center;"></h3>';
-                echo '<h3 class="title" style="color: #000;">' . $ponto['nome_ponto'] . '</h3>';
+                $data_evento_formatada = date('d/m/Y', strtotime($evento['data_evento']));
+                echo '<div class="formEst2" style="width: 30%!important;">';
+                echo '<div class="box" style="margin-top: 13px; width: 382px !important;">';
+                echo '<div class="content">';
+                echo '<div class="icons">';
+                echo '<h3>' . $evento['nome_evento'] . '</h3>';
+                echo '</div>';
+                echo '<p><i class="uil uil-calendar-alt"></i> ' . $data_evento_formatada . '</p>';
                 echo '<h7 style="color: #000; text-transform: uppercase;">Categoria: ' . $categoria . '</h7>';
-                echo '<a href="mostrarPontos.php?id_ponto=' . $ponto['id_ponto'] . '">Ver mais</a>';
+                echo '</div>'; 
+                echo '</div>'; 
                 echo '</div>';
             }
         } else {
-            echo '<p class="aviso">Nenhum ponto cultural encontrado para a categoria selecionada.</p>';
+            echo '<p class="aviso">Nenhum evento encontrado para a categoria selecionada.</p>';
         }
 
         $conexao->close();

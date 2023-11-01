@@ -73,7 +73,12 @@ if (isset($_SESSION['logado'])) {
             include("../../util/tempoMsg.php");
             ?>
         </p>
-
+        <a class="legend2" href="validarPontos.php" style="position: absolute;">
+            <span style="position: relative; z-index: 1; right: 640px; top: 50px;">
+                <small style="font-size: 15px;">Voltar</small>
+            </span>
+            <i class="uil uil-arrow-left" style="font-size: 35px; position: relative; top: -15px; z-index: 2; right: 685px; top: 30px;"></i>
+        </a>
         <div class="container-form2">
             <?php
             $id_ponto = $_GET['id_ponto'];
@@ -81,6 +86,7 @@ if (isset($_SESSION['logado'])) {
             $conexao = obterConexao();
             $result = mysqli_query($conexao, $sql);
             $row = mysqli_fetch_assoc($result);
+            $aprovado = $row['aprovado'];
             ?>
             <form class="form2" action="funcaoPonto.php" method="post">
                 <h3 class="title" style="color: #000;">APROVAR PONTO</h3>
@@ -168,10 +174,14 @@ if (isset($_SESSION['logado'])) {
                     </br>
                 </p>
                 <input type="hidden" name="id_ponto" value="<?php echo $id_ponto; ?>">
+                <?php if ($aprovado == 0) { ?>
                 <div class="botoes">
                     <button type="submit" class="aprov" name="aprov">Aprovar</button></a>
                     <button type="submit" class="apag" name="apag">Apagar</button></a>
                 </div>
+                <?php } else { ?>
+                    <button type="submit" class="apag" name="apag" style="margin-left: 124px;">Apagar</button></a>
+                <?php } ?>
             </form>
         </div>
     </section>

@@ -73,7 +73,7 @@ function obterPreferenciasUsuario($email)
         <div class="forms">
             <div class="form-cadastro">
                 <p><span class="title">Alterar Perfil</span></p>
-                <form action="alterarperfil.php" method="post" id="form-login">
+                <form action="alterarPerfil.php" method="post" id="form-login">
                     <input type="hidden" name="email" value="<?= $perfil[0]["email"] ?>">
                     <div class="input-field">
                         <input type="text" placeholder="Nome" class="form-control" id="id_nome" style="color: #00000;" name="nome" value="<?= $perfil[0]["nome"] ?>" required>

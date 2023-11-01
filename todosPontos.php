@@ -138,7 +138,7 @@ $offset = ($paginaAtual - 1) * $pontosPorPagina;
 
 <body>
     <div class="filtro">
-        <form id="filtroForm" action="filtro.php" method="post">
+        <form id="filtroForm" action="filtroPontos.php" method="post">
             <div class="inputform2" style="border-radius: 2px; border: none; outline: none; margin-top: 0.5rem; align-items: center; display: flex; border-bottom: 2px solid #915c37; border-top: 2px solid transparent; padding: 0.5rem; ">
                 <label for="categoria" style="color: #814a23;">Categoria</label>
                 <select id="categoria" name="categoria" style="border: none; outline: none; align-items: center; margin-left: 55px; background-color: #d3beaf;" required>

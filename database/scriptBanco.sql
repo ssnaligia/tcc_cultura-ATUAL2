@@ -61,18 +61,6 @@ CREATE TABLE Preferencias (
     FOREIGN KEY (categoria) REFERENCES Categoria (id_categoria)
 );
 
-
-CREATE TABLE Comentarios (
-  id_comentario INT AUTO_INCREMENT,
-  id_ponto INT, 
-  comentario TEXT,
-  data_publicacao DATETIME,
-  email VARCHAR(100),
-  PRIMARY KEY (id_comentario, email),
-  FOREIGN KEY (id_ponto) REFERENCES PontosCulturais (id_ponto) ON DELETE CASCADE,
-  FOREIGN KEY (email) REFERENCES Cadastro (email) ON DELETE CASCADE
-);
-
 CREATE TABLE PontosCulturais (
     id_ponto INT AUTO_INCREMENT PRIMARY KEY,
     criador VARCHAR(100),
@@ -83,6 +71,18 @@ CREATE TABLE PontosCulturais (
     aprovado TINYINT DEFAULT 0, /* 0 não aprovado, 1 aprovado */
     FOREIGN KEY (categoria) REFERENCES Categoria (id_categoria),
     FOREIGN KEY (criador) REFERENCES Cadastro (email)
+);
+
+
+CREATE TABLE Comentarios (
+  id_comentario INT AUTO_INCREMENT,
+  id_ponto INT, 
+  comentario TEXT,
+  data_publicacao DATETIME,
+  email VARCHAR(100),
+  PRIMARY KEY (id_comentario, email),
+  FOREIGN KEY (id_ponto) REFERENCES PontosCulturais (id_ponto) ON DELETE CASCADE,
+  FOREIGN KEY (email) REFERENCES Cadastro (email) ON DELETE CASCADE
 );
 
 CREATE TABLE Imagens (
@@ -133,7 +133,7 @@ CREATE TABLE Comunidade (
     descricao_comunidade LONGTEXT,
     aprovado TINYINT DEFAULT 0, /* 0 não aprovado, 1 aprovado */
     PRIMARY KEY (id_comunidade),
-    FOREIGN KEY (criador) REFERENCES Cadastro (email)
+    FOREIGN KEY (criador) REFERENCES Cadastro (email) ON DELETE CASCADE
 );
 
 CREATE TABLE usuarioComunidade (

@@ -123,7 +123,7 @@ if (isset($_GET['id_ponto'])) {
     }
     ?>
     <section class="add-ponto" style="margin-top: 380px; margin-right: -140px;">
-        <a class="legend2" href="<?php echo $previousPage; ?>" style="position: absolute;">
+        <a class="legend2" href="todosPontos.php" style="position: absolute;">
             <span style="position: relative; z-index: 1; right: 640px; top: 50px;">
                 <small style="font-size: 15px;">Voltar</small>
             </span>

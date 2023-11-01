@@ -72,9 +72,7 @@ if (isset($_SESSION['logado'])) {
 <body>
     <div class="aaa" style="height: 100%;/* flex: auto; */display: flex; flex-direction: row;">
         <div class="d-flex flex-column flex-shrink-0 p-3 bg-light navCor" style="width: 280px; height: 100vh;" id="sidebar-admin">
-            <a href="../../public/" class="justify-items-center">
                 <img src="../../assets/logo.svg" alt="logo" class="img-fluid" width="200px" height="200px">
-            </a>
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li>

@@ -51,6 +51,24 @@ if (isset($_GET['executar_funcao'])) {
             font-weight: bolder !important;
             border-bottom: solid 4px var(--primary) !important;
         }
+
+        .filtro {
+            position: fixed;
+            right: 388px;
+            top: 81px;
+        }
+
+        .botaoFiltro {
+            margin-top: 6px;
+            margin-left: 323px;
+            background-color: #915C37;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 5px 10px;
+            font-size: 13px;
+            cursor: pointer;
+        }
     </style>
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
@@ -77,13 +95,13 @@ if (isset($_GET['executar_funcao'])) {
                     <li class="nav-item">
                         <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] == 1) {
                             $nome_usuario = $_SESSION['nome_user'];
-                            echo '<a class="legend" href="perfil2.php"><h1 class="legend" style="font-size: 16px; position: absolute; right: -76px; top: 2px; font-weight: normal;">' . $nome_usuario . '</h1><i class="perfil" style="position: absolute; right: -50px; top: -30px;"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16"><path fill="#915c37" d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fill="#915c37" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/></svg></i></a>';
+                            echo '<a class="legend" href="perfil2.php"><h1 class="legend" style="font-size: 16px; position: absolute; right: -59px; top: 2px; font-weight: normal;">' . $nome_usuario . '</h1><i class="perfil" style="position: absolute; right: -50px; top: -30px;"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16"><path fill="#915c37" d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fill="#915c37" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/></svg></i></a>';
                         } else {
                             echo '<a class="legend" href="login.php"><p class="legend" style="font-size: 16px; position: absolute; right: -76px; top: 2px;">Entrar</p><i class="perfil" style="position: absolute; right: -68px; top: -30px;"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16"><path fill="#915c37" d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fill="#915c37" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/></svg></i></a>';
                         } ?>
                     </li>
                     <li class="nav-item">
-                        <a class="legend" href="duvidas.php"><small style="font-size: 15.4px; position: absolute; right: -130px; top: 3px;">Ajuda</small>
+                        <a class="legend" href="duvidas.php"><small style="font-size: 15.4px; position: absolute; right: -130px; top: 0px;">Ajuda</small>
                             <i class="bi bi-question-circle" style="position: absolute; right: -122px; top: -45.5px; font-size: 39px;">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
@@ -97,11 +115,33 @@ if (isset($_GET['executar_funcao'])) {
         </nav>
 
         <body>
+        <div class="filtro">
+        <form id="filtroForm" action="filtroEventos.php" method="post">
+            <div class="inputform2" style="border-radius: 2px; border: none; outline: none; margin-top: 0.5rem; align-items: center; display: flex; border-bottom: 2px solid #915c37; border-top: 2px solid transparent; padding: 0.5rem; ">
+                <label for="categoria" style="color: #814a23;">Categoria</label>
+                <select id="categoria" name="categoria" style="border: none; outline: none; align-items: center; margin-left: 55px; background-color: #d3beaf;" required>
+                    <option value="" selected>Todas</option>
+                    <option value="1">Eventos no Geral</option>
+                    <option value="2">Teatro</option>
+                    <option value="3">Dança</option>
+                    <option value="4">Literatura</option>
+                    <option value="5">Música</option>
+                    <option value="6">Política</option>
+                    <option value="7">Esporte</option>
+                    <option value="8">Manifestações Religiosas</option>
+                    <option value="9">Entretenimento/Cinema</option>
+                    <option value="10">Shows</option>
+                    <option value="11">Debates</option>
+                </select>
+            </div>
+            <input class="botaoFiltro" type="submit" value="Filtrar">
+        </form>
+    </div>
             <section class="evento">
                 <h2 class="header title"><span style="position: absolute; margin-top: 20px; font-size: 25px; font-weight: 700;">RECOMENDAÇÕES DE EVENTOS</span></h2>
                 <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] == 1) { ?>
-                    <a class="legend3" href="cadastroEvento.php"><small style="font-size: 15px; position: absolute; right: 340px; top: 162px; color: #915c37">Adicionar</small>
-                        <img src="assets/addEvento.svg" style="position: absolute; right: 355px; top: 125px;" width="38px" height="38px"></img>
+                    <a class="legend3" href="cadastroEvento.php"><small style="font-size: 15px;position: absolute;right: 288px;top: 137px;color: #915c37">Adicionar</small>
+                        <img src="assets/addEvento.svg" style="position: absolute;right: 305px;top: 95px;" width="38px" height="38px">
                     </a>
                     <a class="legend3" href=""><small style="font-size: 15px; position: absolute; right: 295px; top: 145px; color: #915c37">
                             <div hidden>
